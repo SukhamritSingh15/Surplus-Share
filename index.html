@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Rescue Network</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library CSS CDN -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Swiper.js CSS CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-green': '#1E392A',
+                        'brand-dark-green': '#14281D',
+                        'brand-light-cream': '#F8F7F4',
+                        'brand-accent-red': '#C70039',
+                        'brand-accent-yellow': '#FFC300',
+                        'brand-text': '#333333',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8F7F4;
+            scroll-behavior: smooth;
+        }
+        .hero-bg {
+            background-image: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=2070&auto-format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        /* Custom Swiper Styles for Testimonials */
+        .testimonial-swiper .swiper-button-next, 
+        .testimonial-swiper .swiper-button-prev {
+            color: #1E392A !important;
+            transition: opacity 0.3s;
+        }
+         .testimonial-swiper .swiper-button-next:hover, 
+         .testimonial-swiper .swiper-button-prev:hover {
+            opacity: 0.7;
+        }
+        .testimonial-swiper .swiper-pagination-bullet-active {
+            background-color: #1E392A !important;
+        }
+        .testimonial-swiper {
+            padding-bottom: 50px !important;
+        }
+        /* Styles for the logo slider */
+        .logo-swiper .swiper-wrapper {
+            transition-timing-function: linear !important;
+        }
+        /* Volunteer Card Styles */
+        .volunteer-card .background-image {
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+        .volunteer-card:hover .background-image {
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+    </style>
+</head>
+<body class="text-brand-text">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white/80 backdrop-blur-lg border-b border-gray-200 sticky top-0 z-50 transition-shadow duration-300" data-aos="fade-down">
+        <nav class="container mx-auto px-4 lg:px-8 flex items-center justify-between h-20 transition-all duration-300">
+            <a href="#" class="text-2xl font-bold text-brand-green flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg>
+                <span>FoodRescue</span>
+            </a>
+            <ul class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-gray-700">
+                <li><a href="#about" class="hover:text-brand-green">About Us</a></li>
+                <li><a href="#how-it-works" class="hover:text-brand-green">How It Works</a></li>
+                <li><a href="#volunteer" class="hover:text-brand-green">Volunteer</a></li>
+                <li><a href="#contact" class="hover:text-brand-green">Contact</a></li>
+            </ul>
+            <div class="flex items-center space-x-2">
+                <a href="#" class="px-4 py-2 text-sm font-semibold text-brand-green rounded-full hover:bg-gray-100">Login</a>
+                <a href="#" class="px-4 py-2 bg-brand-green text-white rounded-full text-sm font-semibold hover:bg-opacity-90 shadow-md hover:shadow-lg transition-shadow">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 1. Compelling Hero Section -->
+    <section class="hero-bg text-white">
+        <div class="container mx-auto px-4 lg:px-8 py-32 lg:py-48" data-aos="fade-in">
+            <div class="max-w-2xl">
+                <h1 class="text-4xl md:text-6xl font-extrabold !leading-tight">Rescue Food. Fight Hunger. Help The Planet.</h1>
+                <p class="mt-4 text-lg text-white/90">We connect businesses with surplus food to local charities and people in need, turning potential waste into vital meals.</p>
+                <div class="mt-8 flex flex-col sm:flex-row gap-4">
+                    <a href="#" class="px-8 py-3 bg-brand-accent-yellow text-brand-dark-green rounded-full font-bold text-center hover:bg-opacity-90 transition-transform hover:scale-105 shadow-lg">Donate Food</a>
+                    <a href="#" class="px-8 py-3 bg-white/20 backdrop-blur-sm border border-white/50 text-white rounded-full font-bold text-center hover:bg-white/30 transition-transform hover:scale-105 shadow-lg">Find Food</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Impact Statistics Dashboard -->
+    <section class="bg-brand-dark-green text-white py-16">
+        <div class="container mx-auto px-4 lg:px-8 text-center" data-aos="fade-up">
+            <h2 class="text-3xl font-bold mb-2">Our Impact in Numbers</h2>
+            <p class="max-w-2xl mx-auto text-white/80 mb-12">Every donation contributes to a stronger, healthier, and more sustainable community.</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="impact-stat">
+                    <div class="text-5xl font-extrabold text-brand-accent-yellow" data-target="125890">0</div>
+                    <p class="mt-2 text-white/90 font-semibold">Meals Rescued</p>
+                </div>
+                <div class="impact-stat">
+                    <div class="text-5xl font-extrabold text-brand-accent-yellow" data-target="87000">0</div>
+                    <p class="mt-2 text-white/90 font-semibold">Pounds of Food Diverted</p>
+                </div>
+                <div class="impact-stat">
+                    <div class="text-5xl font-extrabold text-brand-accent-yellow" data-target="65">0</div>
+                    <p class="mt-2 text-white/90 font-semibold">Tons of CO₂ Prevented</p>
+                </div>
+                <div class="impact-stat">
+                    <div class="text-5xl font-extrabold text-brand-accent-yellow" data-target="35000">0</div>
+                    <p class="mt-2 text-white/90 font-semibold">People Fed</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 2. "How It Works" Section -->
+    <section id="how-it-works" class="py-20">
+        <div class="container mx-auto px-4 lg:px-8 text-center" data-aos="fade-up">
+            <h2 class="text-3xl font-bold text-brand-text mb-4">A Simple Path to Zero Waste</h2>
+            <p class="max-w-2xl mx-auto text-gray-600 mb-16">Our streamlined process makes it effortless to donate surplus food and make a difference.</p>
+            <div class="relative">
+                 <!-- The line -->
+                <div class="hidden md:block absolute top-12 left-0 w-full h-1 border-t-2 border-dashed border-brand-green/30"></div>
+                <div class="grid md:grid-cols-4 gap-12">
+                    <!-- Step 1 -->
+                    <div class="text-center relative" data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-24 h-24 mx-auto bg-brand-green/10 rounded-full flex items-center justify-center border-2 border-dashed border-brand-green/30 mb-4 shadow-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                        </div>
+                        <h3 class="font-bold text-xl">1. Donors List Surplus</h3>
+                        <p class="text-gray-600 mt-2 text-sm">A business with extra food lists it on our platform in minutes.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="text-center relative" data-aos="fade-up" data-aos-delay="200">
+                        <div class="w-24 h-24 mx-auto bg-brand-green/10 rounded-full flex items-center justify-center border-2 border-dashed border-brand-green/30 mb-4 shadow-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                        </div>
+                        <h3 class="font-bold text-xl">2. Charities Get Notified</h3>
+                        <p class="text-gray-600 mt-2 text-sm">Nearby non-profits and food banks receive an instant alert.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="text-center relative" data-aos="fade-up" data-aos-delay="300">
+                        <div class="w-24 h-24 mx-auto bg-brand-green/10 rounded-full flex items-center justify-center border-2 border-dashed border-brand-green/30 mb-4 shadow-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l2 2h8a1 1 0 001-1z" /><path stroke-linecap="round" stroke-linejoin="round" d="M18 17h-5V9a1 1 0 00-1-1H5" /></svg>
+                        </div>
+                        <h3 class="font-bold text-xl">3. Food is Collected</h3>
+                        <p class="text-gray-600 mt-2 text-sm">A volunteer driver or charity member picks up the donation.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="text-center relative" data-aos="fade-up" data-aos-delay="400">
+                        <div class="w-24 h-24 mx-auto bg-brand-green/10 rounded-full flex items-center justify-center border-2 border-dashed border-brand-green/30 mb-4 shadow-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                        </div>
+                        <h3 class="font-bold text-xl">4. Food Reaches People</h3>
+                        <p class="text-gray-600 mt-2 text-sm">The rescued food is distributed to families and individuals in need.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Partner/Testimonial Section -->
+    <section id="partners" class="py-20 bg-white overflow-hidden">
+        <div class="container mx-auto px-4 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-brand-text mb-4" data-aos="fade-up">Trusted by Our Community</h2>
+            <p class="max-w-2xl mx-auto text-center text-gray-600 mb-12" data-aos="fade-up">We're proud to partner with businesses and charities of all sizes to fight food waste together.</p>
+
+            <!-- Testimonials Slider -->
+            <div class="testimonial-swiper swiper-container relative mb-16" data-aos="fade-up">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide p-2">
+                        <div class="bg-brand-light-cream p-8 rounded-xl h-full shadow-lg">
+                            <img src="https://i.pravatar.cc/100?u=a" alt="Sarah L." class="w-16 h-16 rounded-full mb-4">
+                            <blockquote class="text-gray-700 italic">"Food Rescue Network has been a game-changer for our restaurant. We've reduced our waste significantly and it feels incredible knowing our surplus food is helping people right here in our city."</blockquote>
+                            <p class="mt-4 font-bold">- Sarah L., Restaurant Manager</p>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide p-2">
+                        <div class="bg-brand-light-cream p-8 rounded-xl h-full shadow-lg">
+                            <img src="https://i.pravatar.cc/100?u=b" alt="David M." class="w-16 h-16 rounded-full mb-4">
+                            <blockquote class="text-gray-700 italic">"The notifications make it so easy to see available food nearby. As a small charity, this platform has allowed us to serve so many more people without the logistical headaches we used to face."</blockquote>
+                            <p class="mt-4 font-bold">- David M., Community Shelter Director</p>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide p-2">
+                        <div class="bg-brand-light-cream p-8 rounded-xl h-full shadow-lg">
+                            <img src="https://i.pravatar.cc/100?u=c" alt="Maria G." class="w-16 h-16 rounded-full mb-4">
+                            <blockquote class="text-gray-700 italic">"As a volunteer driver, the app is incredibly intuitive. I can see pickups on a map and feel like I'm making a real, tangible impact every time I complete a rescue."</blockquote>
+                            <p class="mt-4 font-bold">- Maria G., Volunteer Driver</p>
+                        </div>
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="swiper-slide p-2">
+                         <div class="bg-brand-light-cream p-8 rounded-xl h-full shadow-lg">
+                            <img src="https://i.pravatar.cc/100?u=d" alt="Tom H." class="w-16 h-16 rounded-full mb-4">
+                            <blockquote class="text-gray-700 italic">"Our farm occasionally has surplus produce that doesn't meet cosmetic standards for supermarkets. This platform connects us with people who appreciate it, ensuring nothing goes to waste."</blockquote>
+                            <p class="mt-4 font-bold">- Tom H., Local Farmer</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+                <!-- Add Navigation -->
+                <div class="swiper-button-prev -left-2 md:left-0"></div>
+                <div class="swiper-button-next -right-2 md:right-0"></div>
+            </div>
+
+            <!-- Partner Logos -->
+            <div class="logo-swiper swiper-container" data-aos="fade-up">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide flex justify-center items-center">
+                         <img src="https://logo.clearbit.com/wholefoodsmarket.com" alt="Whole Foods" class="h-12 grayscale opacity-60 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="swiper-slide flex justify-center items-center">
+                        <img src="https://logo.clearbit.com/starbucks.com" alt="Starbucks" class="h-12 grayscale opacity-60 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="swiper-slide flex justify-center items-center">
+                        <img src="https://logo.clearbit.com/traderjoes.com" alt="Trader Joe's" class="h-12 grayscale opacity-60 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="swiper-slide flex justify-center items-center">
+                        <img src="https://logo.clearbit.com/costco.com" alt="Costco" class="h-12 grayscale opacity-60 hover:opacity-100 transition-opacity">
+                    </div>
+                     <div class="swiper-slide flex justify-center items-center">
+                        <img src="https://logo.clearbit.com/panerabread.com" alt="Panera Bread" class="h-12 grayscale opacity-60 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="swiper-slide flex justify-center items-center">
+                        <img src="https://logo.clearbit.com/marriott.com" alt="Marriott" class="h-12 grayscale opacity-60 hover:opacity-100 transition-opacity">
+                    </div>
+                     <div class="swiper-slide flex justify-center items-center">
+                        <img src="https://logo.clearbit.com/safeway.com" alt="Safeway" class="h-12 grayscale opacity-60 hover:opacity-100 transition-opacity">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Us Volunteer Section -->
+    <section id="volunteer" class="py-20">
+        <div class="container mx-auto px-4 lg:px-8 text-center">
+            <h2 class="text-4xl font-extrabold text-brand-text mb-4" data-aos="fade-up">Be the Bridge Between Waste and Warmth.</h2>
+            <p class="max-w-2xl mx-auto text-gray-600 mb-16" data-aos="fade-up" data-aos-delay="100">Your time and passion can transform surplus food into hope for families in our community. Join us and make a tangible difference.</p>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1: Food Rescuer -->
+                <div class="relative rounded-xl overflow-hidden shadow-lg transition-transform duration-300 ease-in-out hover:-translate-y-2" data-aos="fade-up" data-aos-delay="200">
+                    <div class="background-image h-96 bg-cover bg-center grayscale" style="background-image: url('https://images.unsplash.com/photo-1604537466573-5e945ab84574?q=80&w=1974&auto=format&fit=crop')"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark-green/90 to-transparent transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white text-left">
+                        <h3 class="text-2xl font-bold">Food Rescuer</h3>
+                        <p class="mt-2 text-white/90">Collect surplus food from our partners and deliver it to local charities.</p>
+                    </div>
+                </div>
+                 <!-- Card 2: Community Ambassador -->
+                <div class="relative rounded-xl overflow-hidden shadow-lg transition-transform duration-300 ease-in-out hover:-translate-y-2" data-aos="fade-up" data-aos-delay="300">
+                    <div class="background-image h-96 bg-cover bg-center grayscale" style="background-image: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2070&auto=format&fit=crop')"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark-green/90 to-transparent transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white text-left">
+                        <h3 class="text-2xl font-bold">Community Ambassador</h3>
+                        <p class="mt-2 text-white/90">Spread the word about our mission and help onboard new food donors.</p>
+                    </div>
+                </div>
+                <!-- Card 3: Event Helper -->
+                <div class="relative rounded-xl overflow-hidden shadow-lg transition-transform duration-300 ease-in-out hover:-translate-y-2" data-aos="fade-up" data-aos-delay="400">
+                    <div class="background-image h-96 bg-cover bg-center grayscale" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop')"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark-green/90 to-transparent transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white text-left">
+                        <h3 class="text-2xl font-bold">Event Helper</h3>
+                        <p class="mt-2 text-white/90">Assist at food drives and community events to raise awareness and support.</p>
+                    </div>
+                </div>
+            </div>
+
+             <div class="mt-16" data-aos="fade-up">
+                <a href="#" class="inline-block px-10 py-4 bg-brand-accent-yellow text-brand-dark-green rounded-full font-bold text-center hover:bg-opacity-90 transition-transform hover:scale-105 shadow-lg">Become a Volunteer Today</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Informative Footer -->
+    <footer id="contact" class="bg-brand-dark-green text-white">
+        <div class="container mx-auto px-4 lg:px-8 py-16">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Food Rescue Network</h3>
+                    <p class="text-white/70 text-sm">Reducing food waste and fighting hunger by connecting communities.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm text-white/70">
+                        <li><a href="#about" class="hover:text-white">About Us</a></li>
+                        <li><a href="#how-it-works" class="hover:text-white">How It Works</a></li>
+                        <li><a href="#volunteer" class="hover:text-white">Volunteer</a></li>
+                        <li><a href="#" class="hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Contact</h3>
+                     <ul class="space-y-2 text-sm text-white/70">
+                        <li><a href="mailto:contact@foodrescue.org" class="hover:text-white">contact@foodrescue.org</a></li>
+                        <li><a href="tel:123-456-7890" class="hover:text-white">123-456-7890</a></li>
+                        <li><p>123 Rescue Rd, Hungerfree, USA</p></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Stay Updated</h3>
+                    <p class="text-sm text-white/70 mb-2">Join our newsletter for the latest updates.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="w-full px-3 py-2 text-sm text-gray-800 rounded-l-md focus:outline-none">
+                        <button class="bg-brand-accent-yellow text-brand-dark-green font-bold px-4 py-2 rounded-r-md shadow-md hover:shadow-lg transition-shadow">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-white/20 flex flex-col sm:flex-row justify-between items-center text-sm text-white/60">
+                <p>&copy; 2025 Food Rescue Network. All Rights Reserved.</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+        });
+
+        // Testimonial Slider
+        const testimonialSwiper = new Swiper('.testimonial-swiper', {
+          loop: true,
+          slidesPerView: 1,
+          spaceBetween: 20,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+          breakpoints: {
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 30,
+            }
+          }
+        });
+
+        // Logo Slider
+        const logoSwiper = new Swiper('.logo-swiper', {
+            loop: true,
+            spaceBetween: 40,
+            speed: 5000,
+            autoplay: {
+                delay: 0,
+                disableOnInteraction: false,
+            },
+            allowTouchMove: false,
+            breakpoints: {
+                320: {
+                    slidesPerView: 2,
+                },
+                640: {
+                    slidesPerView: 3,
+                },
+                1024: {
+                    slidesPerView: 5,
+                }
+            }
+        });
+
+        // Impact Statistics Counter & Navbar Scroll Effect
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- COUNTER ---
+            const counters = document.querySelectorAll('.impact-stat [data-target]');
+            const animateCounter = (counter) => {
+                const target = +counter.getAttribute('data-target');
+                const updateCount = () => {
+                    const count = +counter.innerText.replace(/,/g, '');
+                    const increment = target / 100;
+                    if(count < target) {
+                        counter.innerText = Math.ceil(count + increment).toLocaleString();
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.innerText = target.toLocaleString();
+                    }
+                }
+                updateCount();
+            };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                       animateCounter(entry.target);
+                       observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
+
+            // --- NAVBAR SCROLL ---
+            const header = document.querySelector('header');
+            const nav = header.querySelector('nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('shadow-md');
+                    nav.classList.remove('h-20');
+                    nav.classList.add('h-16', 'max-w-6xl');
+                } else {
+                    header.classList.remove('shadow-md');
+                    nav.classList.remove('h-16', 'max-w-6xl');
+                    nav.classList.add('h-20');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
