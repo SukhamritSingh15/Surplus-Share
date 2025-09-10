@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - FoodRescue Network</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-green': '#1E392A',
+                        'brand-dark-green': '#14281D',
+                        'brand-light-cream': '#F8F7F4',
+                        'brand-accent-red': '#C70039',
+                        'brand-accent-yellow': '#FFC300',
+                        'brand-text': '#333333',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8F7F4; /* brand-light-cream */
+        }
+        
+        .tab-button.active {
+            background-color: #1E392A; /* brand-green */
+            color: white;
+            font-weight: 600;
+        }
+        .user-list-view, .modal {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal .modal-content {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-brand-text">
+
+    <header class="bg-white/80 backdrop-blur-lg border-b border-gray-200 sticky top-0 z-50 transition-shadow duration-300" data-aos="fade-down">
+        <nav class="container mx-auto px-4 lg:px-8 flex items-center justify-between h-20 transition-all duration-300">
+            <a href="index.html" class="text-2xl font-bold text-brand-green flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg>
+                <span>FoodRescue</span>
+            </a>
+             <div class="flex items-center space-x-4">
+                <span class="hidden sm:block font-semibold text-gray-700">Admin Panel</span>
+                <a href="login.html" class="px-4 py-2 bg-brand-accent-red text-white rounded-full text-sm font-semibold hover:bg-opacity-90 shadow-sm">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 lg:px-8 py-10">
+        
+        <div data-aos="fade-in">
+            <h1 class="text-4xl font-extrabold text-brand-green">Admin Dashboard</h1>
+            <p class="text-gray-600 mt-1">Oversee users and manage verification requests.</p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-md flex items-center gap-4" data-aos="fade-up">
+                <div class="bg-yellow-100 p-3 rounded-full"><i class="fa-solid fa-user-clock text-2xl text-yellow-600"></i></div>
+                <div>
+                    <p id="pending-count" class="text-3xl font-bold">3</p>
+                    <p class="text-gray-500">Pending Verifications</p>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md flex items-center gap-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-green-100 p-3 rounded-full"><i class="fa-solid fa-store text-2xl text-green-600"></i></div>
+                <div>
+                    <p class="text-3xl font-bold">18</p>
+                    <p class="text-gray-500">Active Donors</p>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md flex items-center gap-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-blue-100 p-3 rounded-full"><i class="fa-solid fa-hand-holding-heart text-2xl text-blue-600"></i></div>
+                <div>
+                    <p class="text-3xl font-bold">12</p>
+                    <p class="text-gray-500">Active NGOs</p>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md flex items-center gap-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="bg-indigo-100 p-3 rounded-full"><i class="fa-solid fa-hands-helping text-2xl text-indigo-600"></i></div>
+                <div>
+                    <p class="text-3xl font-bold">45</p>
+                    <p class="text-gray-500">Active Volunteers</p>
+                </div>
+            </div>
+        </div>
+
+        <section id="verifications" class="mt-12">
+            <h2 class="text-2xl font-bold text-brand-text mb-4" data-aos="fade-right">Pending Verifications</h2>
+            <div id="verification-list" class="space-y-6">
+                <div class="verification-card bg-white rounded-xl shadow-lg p-6 border-l-4 border-blue-500" data-aos="fade-up">
+                    <div class="flex flex-col md:flex-row justify-between items-start gap-4">
+                        <div class="flex-grow">
+                            <span class="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">NGO</span>
+                            <h3 class="text-xl font-bold mt-2">Hope Community Shelter</h3>
+                            <p class="text-sm text-gray-600">contact@hopecommunity.org</p>
+                        </div>
+                        <div class="md:text-right w-full md:w-auto mt-4 md:mt-0">
+                            <p class="font-semibold">KYC Documents:</p>
+                            <a href="#" target="_blank" class="text-blue-600 hover:underline text-sm"><i class="fa-solid fa-file-pdf mr-1"></i> NGO_Registration_Cert.pdf</a>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t flex justify-end gap-3">
+                        <button onclick="handleVerification(this, 'reject')" class="px-4 py-2 text-sm font-bold bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300">Reject</button>
+                        <button onclick="handleVerification(this, 'approve')" class="px-4 py-2 text-sm font-bold bg-brand-green text-white rounded-full hover:bg-brand-dark-green">Approve</button>
+                    </div>
+                </div>
+                <div class="verification-card bg-white rounded-xl shadow-lg p-6 border-l-4 border-indigo-500" data-aos="fade-up">
+                    <div class="flex flex-col md:flex-row justify-between items-start gap-4">
+                         <div class="flex-grow">
+                            <span class="text-xs font-semibold bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">Volunteer</span>
+                            <h3 class="text-xl font-bold mt-2">Maria Garcia</h3>
+                            <p class="text-sm text-gray-600">maria.g@email.com</p>
+                        </div>
+                        <div class="md:text-right w-full md:w-auto mt-4 md:mt-0">
+                            <p class="font-semibold">KYC Details:</p>
+                            <p class="text-sm text-gray-700"><i class="fa-solid fa-phone mr-1"></i> +91 98765 43210 (Verified)</p>
+                            <a href="#" target="_blank" class="text-blue-600 hover:underline text-sm"><i class="fa-solid fa-id-card mr-1"></i> Aadhaar_Card.jpg</a>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t flex justify-end gap-3">
+                        <button onclick="handleVerification(this, 'reject')" class="px-4 py-2 text-sm font-bold bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300">Reject</button>
+                        <button onclick="handleVerification(this, 'approve')" class="px-4 py-2 text-sm font-bold bg-brand-green text-white rounded-full hover:bg-brand-dark-green">Approve</button>
+                    </div>
+                </div>
+                <div class="verification-card bg-white rounded-xl shadow-lg p-6 border-l-4 border-green-500" data-aos="fade-up">
+                    <div class="flex flex-col md:flex-row justify-between items-start gap-4">
+                         <div class="flex-grow">
+                            <span class="text-xs font-semibold bg-green-100 text-green-800 px-2 py-1 rounded-full">Donor</span>
+                            <h3 class="text-xl font-bold mt-2">The Daily Grind Cafe</h3>
+                            <p class="text-sm text-gray-600">manager@dailygrind.com</p>
+                        </div>
+                         <div class="md:text-right w-full md:w-auto mt-4 md:mt-0">
+                            <p class="font-semibold">KYC Details:</p>
+                            <p class="text-sm text-gray-700"><i class="fa-solid fa-building mr-1"></i> Business Registration Verified</p>
+                            <p class="text-sm text-gray-700"><i class="fa-solid fa-phone mr-1"></i> +91 12345 67890</p>
+                            <a href="#" target="_blank" class="text-blue-600 hover:underline text-sm"><i class="fa-solid fa-id-card mr-1"></i> Aadhaar_Card.jpg</a>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t flex justify-end gap-3">
+                        <button onclick="handleVerification(this, 'reject')" class="px-4 py-2 text-sm font-bold bg-gray-200 text-gray-800 rounded-full hover:bg-gray-300">Reject</button>
+                        <button onclick="handleVerification(this, 'approve')" class="px-4 py-2 text-sm font-bold bg-brand-green text-white rounded-full hover:bg-brand-dark-green">Approve</button>
+                    </div>
+                </div>
+            </div>
+             <p id="no-verifications-msg" class="hidden text-center text-gray-500 bg-gray-50 p-6 rounded-lg">No pending verifications. All users are up to date!</p>
+        </section>
+
+        <section class="mt-12">
+            <h2 class="text-2xl font-bold text-brand-text mb-4" data-aos="fade-right">Active User Lists</h2>
+            <div class="bg-gray-200 p-1.5 rounded-full flex gap-2 max-w-md" data-aos="fade-up">
+                <button onclick="showTab('donors')" class="tab-button w-full px-4 py-2 text-sm rounded-full active">Donors</button>
+                <button onclick="showTab('ngos')" class="tab-button w-full px-4 py-2 text-sm rounded-full">NGOs</button>
+                <button onclick="showTab('volunteers')" class="tab-button w-full px-4 py-2 text-sm rounded-full">Volunteers</button>
+            </div>
+            <div class="mt-6">
+                <div id="donors-list" class="user-list-view bg-white p-6 rounded-xl shadow-md">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg"><div><p class="font-bold">The Corner Market</p><p class="text-sm text-gray-500">Joined: 2024-08-15</p></div><button onclick="showUserInfo('Donor', 'The Corner Market', 'Joined: 2024-08-15', 'https://placehold.co/400x300/a7f3d0/14281D?text=Aadhaar+Card')" class="text-sm font-semibold text-brand-green hover:underline">View</button></div>
+                        <div class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg"><div><p class="font-bold">SuperMart Grocers</p><p class="text-sm text-gray-500">Joined: 2024-07-22</p></div><button onclick="showUserInfo('Donor', 'SuperMart Grocers', 'Joined: 2024-07-22', 'https://placehold.co/400x300/a7f3d0/14281D?text=Aadhaar+Card')" class="text-sm font-semibold text-brand-green hover:underline">View</button></div>
+                    </div>
+                </div>
+                <div id="ngos-list" class="user-list-view bg-white p-6 rounded-xl shadow-md hidden">
+                     <div class="space-y-4">
+                        <div class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg"><div><p class="font-bold">The People's Pantry</p><p class="text-sm text-gray-500">Joined: 2024-06-10</p></div><button onclick="showUserInfo('NGO', 'The People`s Pantry', 'Joined: 2024-06-10', 'https://placehold.co/400x300/bae6fd/14281D?text=NGO+Certificate')" class="text-sm font-semibold text-brand-green hover:underline">View</button></div>
+                        <div class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg"><div><p class="font-bold">City Mission Shelter</p><p class="text-sm text-gray-500">Joined: 2024-05-19</p></div><button onclick="showUserInfo('NGO', 'City Mission Shelter', 'Joined: 2024-05-19', 'https://placehold.co/400x300/bae6fd/14281D?text=NGO+Certificate')" class="text-sm font-semibold text-brand-green hover:underline">View</button></div>
+                    </div>
+                </div>
+                <div id="volunteers-list" class="user-list-view bg-white p-6 rounded-xl shadow-md hidden">
+                     <div class="space-y-4">
+                        <div class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg"><div><p class="font-bold">Raj Patel</p><p class="text-sm text-gray-500">Deliveries: 15</p></div><button onclick="showUserInfo('Volunteer', 'Raj Patel', 'Deliveries: 15', 'https://placehold.co/400x300/c7d2fe/14281D?text=Profile+Photo')" class="text-sm font-semibold text-brand-green hover:underline">View</button></div>
+                        <div class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg"><div><p class="font-bold">Anita Desai</p><p class="text-sm text-gray-500">Deliveries: 8</p></div><button onclick="showUserInfo('Volunteer', 'Anita Desai', 'Deliveries: 8', 'https://placehold.co/400x300/c7d2fe/14281D?text=Profile+Photo')" class="text-sm font-semibold text-brand-green hover:underline">View</button></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <div id="confirmation-modal" class="modal hidden fixed inset-0 bg-black/50 z-[98] flex items-center justify-center p-4 opacity-0">
+        <div class="modal-content bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full text-center scale-95">
+            <div id="modal-icon-container" class="w-20 h-20 rounded-full mx-auto flex items-center justify-center mb-4">
+                <i id="modal-icon" class="text-4xl"></i>
+            </div>
+            <h2 id="modal-title" class="text-2xl font-bold mb-2"></h2>
+            <p id="modal-message" class="text-gray-600 mb-6"></p>
+            <button onclick="closeActionModal()" class="w-full block px-6 py-3 bg-brand-green text-white rounded-full font-bold text-center hover:bg-brand-dark-green transition-transform hover:scale-105 shadow-lg">Close</button>
+        </div>
+    </div>
+    
+    <div id="user-info-modal" class="modal hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[99] flex items-center justify-center p-4 opacity-0">
+        <div class="modal-content bg-brand-light-cream p-6 rounded-2xl shadow-2xl max-w-lg w-full scale-95 relative">
+            <button onclick="closeUserInfoModal()" class="absolute top-3 right-3 w-8 h-8 bg-gray-200 text-gray-600 rounded-full hover:bg-gray-300 transition-colors">&times;</button>
+            <img id="user-info-image" src="" alt="User Document" class="w-full h-64 object-contain rounded-lg mb-4 bg-gray-200">
+            <h2 id="user-info-name" class="text-2xl font-bold text-brand-green"></h2>
+            <p id="user-info-details" class="text-gray-600"></p>
+            <p id="user-info-type" class="text-xs font-semibold mt-2 px-2 py-1 rounded-full inline-block"></p>
+        </div>
+    </div>
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- INITIALIZE AOS ---
+            AOS.init({
+                duration: 600,
+                once: true,
+                offset: 20,
+            });
+
+            // --- NAVBAR SCROLL ANIMATION (FROM INDEX.HTML) ---
+            const header = document.querySelector('header');
+            const nav = header.querySelector('nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('shadow-md');
+                    nav.classList.remove('h-20');
+                    nav.classList.add('h-16', 'max-w-6xl');
+                } else {
+                    header.classList.remove('shadow-md');
+                    nav.classList.remove('h-16', 'max-w-6xl');
+                    nav.classList.add('h-20');
+                }
+            });
+        });
+
+        const tabs = {
+            donors: document.getElementById('donors-list'),
+            ngos: document.getElementById('ngos-list'),
+            volunteers: document.getElementById('volunteers-list')
+        };
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const confirmationModal = document.getElementById('confirmation-modal');
+        const actionModalContent = confirmationModal.querySelector('.modal-content');
+        const userInfoModal = document.getElementById('user-info-modal');
+        const userInfoModalContent = userInfoModal.querySelector('.modal-content');
+        
+        // --- TAB SWITCHING LOGIC ---
+        function showTab(tabName) {
+            for (const key in tabs) { tabs[key].classList.add('hidden'); }
+            tabs[tabName].classList.remove('hidden');
+            tabButtons.forEach(button => button.classList.remove('active'));
+            document.querySelector(`.tab-button[onclick="showTab('${tabName}')"]`).classList.add('active');
+        }
+
+        // --- VERIFICATION LOGIC ---
+        function handleVerification(button, action) {
+            const card = button.closest('.verification-card');
+            card.style.transition = 'opacity 0.5s, transform 0.5s';
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                card.remove();
+                updatePendingCount();
+            }, 500);
+            showActionModal(action);
+        }
+
+        function updatePendingCount() {
+            const list = document.getElementById('verification-list');
+            const currentCount = list.children.length;
+            document.getElementById('pending-count').textContent = currentCount;
+            if (currentCount === 0) {
+                 document.getElementById('no-verifications-msg').classList.remove('hidden');
+            }
+        }
+        
+        // --- MODAL LOGIC ---
+        function showActionModal(action) {
+            const iconContainer = document.getElementById('modal-icon-container');
+            const icon = document.getElementById('modal-icon');
+            const title = document.getElementById('modal-title');
+            const message = document.getElementById('modal-message');
+
+            iconContainer.className = 'w-20 h-20 rounded-full mx-auto flex items-center justify-center mb-4';
+            icon.className = 'text-4xl';
+
+            if (action === 'approve') {
+                iconContainer.classList.add('bg-green-100');
+                icon.classList.add('fa-solid', 'fa-check', 'text-green-600');
+                title.textContent = 'User Approved';
+                title.style.color = '#1E392A';
+                message.textContent = 'The user has been verified and can now access the platform.';
+            } else {
+                iconContainer.classList.add('bg-red-100');
+                icon.classList.add('fa-solid', 'fa-times', 'text-red-600');
+                title.textContent = 'User Rejected';
+                title.style.color = '#C70039';
+                message.textContent = 'The user has been rejected and the request has been removed.';
+            }
+            confirmationModal.classList.remove('hidden');
+            setTimeout(() => {
+               confirmationModal.classList.remove('opacity-0');
+               actionModalContent.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeActionModal() {
+            confirmationModal.classList.add('opacity-0');
+            actionModalContent.classList.add('scale-95');
+            setTimeout(() => confirmationModal.classList.add('hidden'), 300);
+        }
+
+        function showUserInfo(userType, name, details, imageUrl) {
+            document.getElementById('user-info-image').src = imageUrl;
+            document.getElementById('user-info-name').textContent = name;
+            document.getElementById('user-info-details').textContent = details;
+            
+            const typeBadge = document.getElementById('user-info-type');
+            typeBadge.textContent = userType;
+            // Style the badge based on type
+            typeBadge.className = 'text-xs font-semibold mt-2 px-2 py-1 rounded-full inline-block';
+            if (userType === 'Donor') typeBadge.classList.add('bg-green-100', 'text-green-800');
+            else if (userType === 'NGO') typeBadge.classList.add('bg-blue-100', 'text-blue-800');
+            else if (userType === 'Volunteer') typeBadge.classList.add('bg-indigo-100', 'text-indigo-800');
+
+            userInfoModal.classList.remove('hidden');
+            setTimeout(() => {
+               userInfoModal.classList.remove('opacity-0');
+               userInfoModalContent.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeUserInfoModal() {
+            userInfoModal.classList.add('opacity-0');
+            userInfoModalContent.classList.add('scale-95');
+            setTimeout(() => userInfoModal.classList.add('hidden'), 300);
+        }
+    </script>
+</body>
+</html>

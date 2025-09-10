@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - FoodRescue Network</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library CSS CDN -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind CSS Configuration (from your index.html) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-green': '#1E392A',
+                        'brand-dark-green': '#14281D',
+                        'brand-light-cream': '#F8F7F4',
+                        'brand-accent-red': '#C70039',
+                        'brand-accent-yellow': '#FFC300',
+                        'brand-text': '#333333',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8F7F4; /* brand-light-cream */
+            scroll-behavior: smooth;
+        }
+        /* Style for the active tab in the switcher */
+        .role-switcher button.active {
+            background-color: #1E392A; /* brand-green */
+            color: white;
+            font-weight: 600;
+        }
+        /* Animation for dashboard view switching */
+        .dashboard-view {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="text-brand-text">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white/80 backdrop-blur-lg border-b border-gray-200 sticky top-0 z-50 transition-shadow duration-300">
+        <nav class="container mx-auto px-4 lg:px-8 flex items-center justify-between h-20 transition-all duration-300">
+            <a href="#" class="text-2xl font-bold text-brand-green flex items-center gap-2">
+                <i class="fa-solid fa-seedling"></i>
+                <span>FoodRescue</span>
+            </a>
+            <div class="flex items-center space-x-4">
+                <span id="welcome-message" class="hidden sm:block text-gray-700">Welcome, User!</span>
+                <a href="#" class="px-4 py-2 text-sm font-semibold text-brand-green rounded-full hover:bg-gray-100">My Account</a>
+                <a href="#" class="px-4 py-2 bg-brand-accent-red text-white rounded-full text-sm font-semibold hover:bg-opacity-90 shadow-sm">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Dashboard Content -->
+    <main class="container mx-auto px-4 lg:px-8 py-10">
+        
+        <!-- USER ROLE SIMULATOR -->
+    
+
+        <!-- =================================================================== -->
+        <!-- ==                      DONOR DASHBOARD                          == -->
+        <!-- =================================================================== -->
+        <div id="donor-dashboard" class="dashboard-view">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <div data-aos="fade-right">
+                    <h1 class="text-3xl font-bold text-brand-green">Donor Dashboard</h1>
+                    <p class="text-gray-600">Add and manage your food donations here.</p>
+                </div>
+                <button data-aos="fade-left" class="w-full md:w-auto px-6 py-3 bg-brand-accent-yellow text-brand-dark-green rounded-full font-bold hover:bg-opacity-90 transition-transform hover:scale-105 shadow-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-plus-circle"></i> Add New Food Donation
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Content -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Active Donations -->
+                    <div data-aos="fade-up">
+                        <h2 class="text-xl font-bold mb-4">Your Active Listings</h2>
+                        <div class="bg-white p-6 rounded-xl shadow-md space-y-4">
+                            <!-- Item 1 -->
+                            <div class="flex flex-col sm:flex-row items-start gap-4 p-4 border rounded-lg">
+                                <img src="https://placehold.co/100x100/e2e8f0/333333?text=Bread" alt="Bread" class="w-24 h-24 rounded-md object-cover">
+                                <div class="flex-grow">
+                                    <div class="flex justify-between items-start">
+                                        <h3 class="font-bold text-lg">Surplus Bakery Bread & Pastries</h3>
+                                        <span class="text-xs font-semibold bg-green-100 text-green-800 px-2 py-1 rounded-full">Claimed</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500 mt-1"><i class="fa-solid fa-clock mr-1"></i> Pickup Window: Today, 4PM - 6PM</p>
+                                    <p class="text-sm text-gray-600 mt-2">Claimed by: <strong>Hope Community Shelter</strong></p>
+                                </div>
+                                <button class="mt-2 sm:mt-0 w-full sm:w-auto px-3 py-2 text-xs bg-gray-200 rounded-md hover:bg-gray-300">Manage</button>
+                            </div>
+                            <!-- Item 2 -->
+                            <div class="flex flex-col sm:flex-row items-start gap-4 p-4 border rounded-lg">
+                                <img src="https://placehold.co/100x100/e2e8f0/333333?text=Veggies" alt="Vegetables" class="w-24 h-24 rounded-md object-cover">
+                                <div class="flex-grow">
+                                    <div class="flex justify-between items-start">
+                                        <h3 class="font-bold text-lg">Mixed Fresh Vegetables (5kg)</h3>
+                                        <span class="text-xs font-semibold bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Listed</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500 mt-1"><i class="fa-solid fa-clock mr-1"></i> Pickup Window: Today, until 8PM</p>
+                                    <p class="text-sm text-gray-600 mt-2">Awaiting claim from a local charity.</p>
+                                </div>
+                                <button class="mt-2 sm:mt-0 w-full sm:w-auto px-3 py-2 text-xs bg-gray-200 rounded-md hover:bg-gray-300">Manage</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="space-y-6">
+                    <div class="bg-brand-dark-green text-white p-6 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="font-bold text-lg mb-4 text-brand-accent-yellow">Your Impact</h3>
+                        <div class="flex justify-around text-center">
+                            <div>
+                                <p class="text-3xl font-extrabold" data-target="125">0</p>
+                                <p class="text-sm text-white/80">Meals Donated</p>
+                            </div>
+                            <div>
+                                <p class="text-3xl font-extrabold" data-target="85">0</p>
+                                <p class="text-sm text-white/80">People Fed</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="200">
+                         <h3 class="font-bold text-lg mb-2">Donation History</h3>
+                         <ul class="space-y-2 text-sm text-gray-600">
+                             <li class="flex justify-between"><span>Catered Lunch Leftovers</span> <span class="text-gray-400">Sep 8</span></li>
+                             <li class="flex justify-between"><span>Canned Goods</span> <span class="text-gray-400">Sep 5</span></li>
+                             <li class="flex justify-between"><span>Morning Pastries</span> <span class="text-gray-400">Sep 4</span></li>
+                         </ul>
+                         <a href="#" class="text-sm font-semibold text-brand-green hover:underline mt-4 block">View all history &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- =================================================================== -->
+        <!-- ==                       NGO DASHBOARD                           == -->
+        <!-- =================================================================== -->
+        <div id="ngo-dashboard" class="dashboard-view hidden">
+             <div class="mb-6" data-aos="fade-in">
+                <h1 class="text-3xl font-bold text-brand-green">NGO Dashboard</h1>
+                <p class="text-gray-600">Find and claim available food for your community.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Content -->
+                <div class="lg:col-span-2">
+                    <div data-aos="fade-up">
+                        <h2 class="text-xl font-bold mb-4">Available Food Near You</h2>
+                        <div class="bg-white p-6 rounded-xl shadow-md space-y-4">
+                            <!-- Item 1 -->
+                            <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+                                <img src="https://placehold.co/600x200/d1fae5/1E392A?text=Fresh+Produce+Available" class="w-full h-32 object-cover" alt="Produce">
+                                <div class="p-4">
+                                    <div class="flex justify-between items-start">
+                                        <h3 class="font-bold text-lg">Mixed Fresh Vegetables (5kg)</h3>
+                                        <span class="text-sm font-semibold">1.2 km away</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500 mt-1">From: <strong>The Corner Market</strong></p>
+                                    <p class="text-sm text-gray-600 mt-2"><i class="fa-solid fa-clock mr-1"></i> Pickup available until 8:00 PM today.</p>
+                                    <button class="mt-4 w-full bg-brand-green text-white font-bold py-2 rounded-lg hover:bg-brand-dark-green transition-colors">View Details & Claim</button>
+                                </div>
+                            </div>
+                             <!-- Item 2 -->
+                            <div class="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+                                <img src="https://placehold.co/600x200/fef3c7/1E392A?text=Hot+Meals+Ready" class="w-full h-32 object-cover" alt="Hot meals">
+                                 <div class="p-4">
+                                    <div class="flex justify-between items-start">
+                                        <h3 class="font-bold text-lg">Prepared Meals (Feeds 15-20)</h3>
+                                        <span class="text-sm font-semibold">3.5 km away</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500 mt-1">From: <strong>Corporate Event Catering</strong></p>
+                                    <p class="text-sm text-gray-600 mt-2"><i class="fa-solid fa-clock mr-1"></i> Pickup between 5:00 PM - 5:30 PM today.</p>
+                                    <button class="mt-4 w-full bg-brand-green text-white font-bold py-2 rounded-lg hover:bg-brand-dark-green transition-colors">View Details & Claim</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Sidebar -->
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="font-bold text-lg mb-4">Your Scheduled Pickups</h3>
+                        <div class="space-y-3">
+                            <div class="p-3 bg-gray-50 rounded-lg">
+                                <p class="font-semibold">Surplus Bakery Bread</p>
+                                <p class="text-sm text-gray-600">From: The Daily Grind Cafe</p>
+                                <p class="text-sm text-brand-green font-bold mt-1">Today, 4:00 PM - 6:00 PM</p>
+                            </div>
+                             <div class="p-3 bg-gray-50 rounded-lg">
+                                <p class="font-semibold">Canned Goods Donation</p>
+                                <p class="text-sm text-gray-600">From: SuperMart Grocers</p>
+                                <p class="text-sm text-brand-green font-bold mt-1">Tomorrow, 10:00 AM</p>
+                            </div>
+                        </div>
+                        <a href="#" class="text-sm font-semibold text-brand-green hover:underline mt-4 block">View all pickups &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- =================================================================== -->
+        <!-- ==                    VOLUNTEER DASHBOARD                        == -->
+        <!-- =================================================================== -->
+        <div id="volunteer-dashboard" class="dashboard-view hidden">
+             <div class="mb-6" data-aos="fade-in">
+                <h1 class="text-3xl font-bold text-brand-green">Volunteer Dashboard</h1>
+                <p class="text-gray-600">Find and manage food rescue deliveries. Thank you for your help!</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Content -->
+                <div class="lg:col-span-2">
+                    <div data-aos="fade-up">
+                        <h2 class="text-xl font-bold mb-4">New Delivery Opportunities</h2>
+                        <div class="bg-white p-6 rounded-xl shadow-md space-y-4">
+                            <!-- Task 1 -->
+                            <div class="p-4 border rounded-lg hover:shadow-md transition-shadow">
+                                <div class="flex flex-col sm:flex-row justify-between sm:items-center">
+                                    <p class="font-bold text-lg">Bakery Pickup</p>
+                                    <span class="text-sm font-semibold text-brand-text">Est. 25 mins</span>
+                                </div>
+                                <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                    <div class="bg-blue-50 p-3 rounded-md">
+                                        <p class="font-semibold text-blue-800">PICKUP FROM (Donor):</p>
+                                        <p>The Daily Grind Cafe</p>
+                                        <p class="text-gray-600">123 Main St, Chandigarh</p>
+                                    </div>
+                                    <div class="bg-green-50 p-3 rounded-md">
+                                        <p class="font-semibold text-green-800">DELIVER TO (NGO):</p>
+                                        <p>Hope Community Shelter</p>
+                                        <p class="text-gray-600">456 Park Ave, Chandigarh</p>
+                                    </div>
+                                </div>
+                                <button class="mt-4 w-full bg-brand-accent-yellow text-brand-dark-green font-bold py-2 rounded-lg hover:bg-opacity-90">Accept Delivery</button>
+                            </div>
+                             <!-- Task 2 -->
+                            <div class="p-4 border rounded-lg hover:shadow-md transition-shadow">
+                                <div class="flex flex-col sm:flex-row justify-between sm:items-center">
+                                    <p class="font-bold text-lg">Grocery Store Run</p>
+                                    <span class="text-sm font-semibold text-brand-text">Est. 40 mins</span>
+                                </div>
+                                <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                    <div class="bg-blue-50 p-3 rounded-md">
+                                        <p class="font-semibold text-blue-800">PICKUP FROM (Donor):</p>
+                                        <p>SuperMart Grocers</p>
+                                        <p class="text-gray-600">789 Market Rd, Chandigarh</p>
+                                    </div>
+                                    <div class="bg-green-50 p-3 rounded-md">
+                                        <p class="font-semibold text-green-800">DELIVER TO (NGO):</p>
+                                        <p>The People's Pantry</p>
+                                        <p class="text-gray-600">101 River Side, Chandigarh</p>
+                                    </div>
+                                </div>
+                                <button class="mt-4 w-full bg-brand-accent-yellow text-brand-dark-green font-bold py-2 rounded-lg hover:bg-opacity-90">Accept Delivery</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Sidebar -->
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-xl shadow-md" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="font-bold text-lg mb-4">Your Accepted Deliveries</h3>
+                        <div class="p-3 bg-gray-50 rounded-lg">
+                            <p class="font-semibold">Catering Pickup</p>
+                            <p class="text-sm text-gray-600">Corp. Event &rarr; City Mission</p>
+                            <div class="mt-2 text-sm text-blue-700 font-bold bg-blue-100 p-2 rounded-md"><i class="fa-solid fa-route mr-2"></i>Status: En Route</div>
+                        </div>
+                         <a href="#" class="text-sm font-semibold text-brand-green hover:underline mt-4 block">View delivery history &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    
+    <!-- AOS Animation Library JS CDN -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // --- DYNAMIC DASHBOARD LOGIC ---
+
+        const welcomeMessage = document.getElementById('welcome-message');
+        const dashboards = {
+            donor: document.getElementById('donor-dashboard'),
+            ngo: document.getElementById('ngo-dashboard'),
+            volunteer: document.getElementById('volunteer-dashboard')
+        };
+        const switcherButtons = document.querySelectorAll('.role-switcher button');
+        
+        function showDashboard(role) {
+            // A real app would get this 'role' after login.
+            // For example: const userRole = '<?php echo $user->role; ?>';
+            
+            // 1. Hide all dashboards
+            for (const key in dashboards) {
+                dashboards[key].classList.add('hidden');
+            }
+            
+            // 2. Show the correct dashboard
+            if (dashboards[role]) {
+                dashboards[role].classList.remove('hidden');
+                // Re-initialize AOS to detect new elements
+                AOS.refresh();
+            }
+
+            // 3. Update the welcome message
+            const roleName = role.charAt(0).toUpperCase() + role.slice(1);
+            welcomeMessage.textContent = `Welcome, ${roleName}!`;
+
+            // 4. Update the active state of switcher buttons
+             switcherButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.textContent.toLowerCase().includes(role)) {
+                    button.classList.add('active');
+                }
+            });
+        }
+        
+        // --- INITIALIZATION & ANIMATION LOGIC ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize AOS
+            AOS.init({
+                duration: 600,
+                once: true,
+                offset: 20,
+            });
+
+            // Show dashboard based on ?role= in URL, default to donor
+            const params = new URLSearchParams(window.location.search);
+            const roleParam = (params.get('role') || 'donor').toLowerCase();
+            const validRoles = ['donor', 'ngo', 'volunteer'];
+            const chosenRole = validRoles.includes(roleParam) ? roleParam : 'donor';
+            showDashboard(chosenRole);
+
+            // --- NAVBAR SCROLL ---
+            const header = document.querySelector('header');
+            const nav = header.querySelector('nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('shadow-md');
+                    nav.classList.remove('h-20');
+                    nav.classList.add('h-16');
+                } else {
+                    header.classList.remove('shadow-md');
+                    nav.classList.remove('h-16');
+                    nav.classList.add('h-20');
+                }
+            });
+            
+            // --- IMPACT COUNTER ---
+            const counters = document.querySelectorAll('[data-target]');
+            const animateCounter = (counter) => {
+                const target = +counter.getAttribute('data-target');
+                const updateCount = () => {
+                    const count = +counter.innerText.replace(/,/g, '');
+                    const increment = target / 100; // Animation speed
+                    if(count < target) {
+                        counter.innerText = Math.ceil(count + increment).toLocaleString();
+                        requestAnimationFrame(updateCount);
+                    } else {
+                        counter.innerText = target.toLocaleString();
+                    }
+                }
+                updateCount();
+            };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                       animateCounter(entry.target);
+                       observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
+        });
+
+    </script>
+</body>
+</html>
+
