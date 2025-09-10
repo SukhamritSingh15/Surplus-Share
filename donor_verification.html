@@ -424,13 +424,8 @@
         }
         
         function submitVerification() {
-             stepperItems[2].classList.add('completed');
-             stepperItems[2].classList.remove('active');
-             const finalCircle = stepperItems[2].querySelector('.stepper-circle');
-             finalCircle.innerHTML = `<i class="fa-solid fa-check"></i>`;
-
-             steps.forEach(step => step.classList.add('hidden'));
-             document.getElementById('confirmation').classList.remove('hidden');
+            // Placeholder; will be overridden by Firebase module below
+            console.warn('Firebase not initialized yet.');
         }
 
         // --- File Upload Logic ---
@@ -480,6 +475,75 @@
             fileInput.value = ''; // Clear the file input
             fileInfo.classList.add('hidden');
             dropArea.classList.remove('hidden');
+        }
+    </script>
+    <script type="module">
+        import { auth, db } from './FirebaseConfig.js';
+        import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+        import { doc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+        let currentUser = null;
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                window.location.href = 'login.html#register';
+            } else {
+                currentUser = user;
+            }
+        });
+
+        function getSelectedDonorType() {
+            if (document.getElementById('type-restaurant').checked) return 'restaurant';
+            if (document.getElementById('type-supermarket').checked) return 'supermarket';
+            return 'individual';
+        }
+
+        function getDonorFormData() {
+            return {
+                donorType: getSelectedDonorType(),
+                fullNameOrBusiness: document.getElementById('full-name').value || '',
+                phoneNumber: document.getElementById('phone-number').value || '',
+                address: document.getElementById('address').value || '',
+                documentType: (document.getElementById('doc-type') && document.getElementById('doc-type').value) || '',
+            };
+        }
+
+        window.submitVerification = async function() {
+            if (!currentUser) {
+                alert('Please login again to continue.');
+                window.location.href = 'login.html#register';
+                return;
+            }
+            const terms = document.getElementById('terms-agree');
+            if (terms && !terms.checked) {
+                alert('Please agree to the Terms of Service to continue.');
+                return;
+            }
+
+            const donorProfile = getDonorFormData();
+            try {
+                await setDoc(doc(db, 'users', currentUser.uid), {
+                    role: 'donor',
+                    verification_status: 'approved',
+                    donor_profile: donorProfile,
+                    updated_at: serverTimestamp()
+                }, { merge: true });
+
+                // Update UI stepper to completed
+                stepperItems[2].classList.add('completed');
+                stepperItems[2].classList.remove('active');
+                const finalCircle = stepperItems[2].querySelector('.stepper-circle');
+                finalCircle.innerHTML = `<i class="fa-solid fa-check"></i>`;
+                steps.forEach(step => step.classList.add('hidden'));
+                document.getElementById('confirmation').classList.remove('hidden');
+
+                // Navigate to donor dashboard
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html?role=donor';
+                }, 600);
+            } catch (err) {
+                console.error('Verification update failed', err);
+                alert('Failed to submit verification. Please try again.');
+            }
         }
     </script>
 </body>

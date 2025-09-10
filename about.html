@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Food Rescue Network</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS Animation Library CSS CDN -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-green': '#1E392A',
+            'brand-dark-green': '#14281D',
+            'brand-light-cream': '#F8F7F4',
+            'brand-accent-red': '#C70039',
+            'brand-accent-yellow': '#FFC300',
+            'brand-text': '#333333',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #F8F7F4;
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+
+<body class="flex flex-col min-h-screen text-brand-text">
+
+  <!-- Navbar -->
+  <header class="bg-white/80 backdrop-blur-lg border-b border-gray-200 sticky top-0 z-50 transition-shadow duration-300" data-aos="fade-down">
+    <nav class="container mx-auto px-4 lg:px-8 flex items-center justify-between h-20 transition-all duration-300">
+        <a href="#" class="text-2xl font-bold text-brand-green flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg>
+            <span>FoodRescue</span>
+        </a>
+        <ul class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-gray-700">
+            <li><a href="about.html" class="hover:text-brand-green">About Us</a></li>
+            <li><a href="howitworks.html" class="hover:text-brand-green">How It Works</a></li>
+            <li><a href="contact.html" class="hover:text-brand-green">Contact</a></li>
+            <li><a href="Reach_NGOs.html" class="hover:text-brand-green">Reach NGOs</a></li>
+            <li><a href="dashboard.html" class="hover:text-brand-green">Dashboard</a></li>
+        </ul>
+        <div class="flex items-center space-x-2">
+            <a href="login.html" class="px-4 py-2 text-sm font-semibold text-brand-green rounded-full hover:bg-gray-100">Login</a>
+            <a href="login.html" class="px-4 py-2 bg-brand-green text-white rounded-full text-sm font-semibold hover:bg-opacity-90 shadow-md hover:shadow-lg transition-shadow">Sign Up</a>
+        </div>
+    </nav>
+</header>
+
+  <!-- Page Content -->
+  <main class="flex-grow">
+
+    <!-- Hero -->
+    <section class="relative bg-brand-green text-white py-32 text-center overflow-hidden" data-aos="fade-in">
+      <!-- Background image -->
+      <div class="absolute inset-0">
+        <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=2000&auto=format&fit=crop"
+          alt="Food sharing" class="w-full h-full object-cover">
+        <!-- Dark overlay -->
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+      </div>
+
+      <!-- Content -->
+      <div class="relative z-10">
+        <h1 class="text-5xl font-extrabold mb-4">About Food Rescue Network</h1>
+        <p class="max-w-2xl mx-auto text-white/80 text-lg">
+          Together, we fight hunger, reduce waste, and create a sustainable future.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- Mission -->
+    <section class="py-20">
+      <div class="container mx-auto px-4 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+        <div data-aos="fade-right">
+          <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2000&auto=format&fit=crop"
+            class="rounded-xl shadow-lg" alt="Mission">
+        </div>
+        <div data-aos="fade-left">
+          <h2 class="text-3xl font-bold mb-4">Our Mission</h2>
+          <p class="text-gray-600 leading-relaxed">We aim to bridge the gap between surplus food and those in need. By
+            connecting donors, NGOs, and volunteers, we transform potential waste into meals and hope for communities.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vision -->
+    <section class="bg-brand-light-cream py-20">
+      <div class="container mx-auto px-4 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+        <div class="order-2 md:order-1" data-aos="fade-right">
+          <h2 class="text-3xl font-bold mb-4">Our Vision</h2>
+          <p class="text-gray-600 leading-relaxed">
+            We envision a world where no food goes to waste and no person goes hungry.
+            Through technology, collaboration, and awareness, we work towards a sustainable food ecosystem.
+          </p>
+        </div>
+        <div class="order-1 md:order-2" data-aos="fade-left">
+          <img src="https://images.unsplash.com/photo-1508873696983-2dfd5898f08b?q=80&w=2000&auto=format&fit=crop"
+            class="rounded-xl shadow-lg" alt="Vision">
+        </div>
+      </div>
+    </section>
+
+    <!-- Journey -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 lg:px-8">
+        <h2 class="text-3xl font-bold text-center mb-12" data-aos="fade-up">Our Journey</h2>
+        <div class="relative">
+          <div
+            class="absolute left-1/2 transform -translate-x-1/2 h-full border-l-2 border-dashed border-brand-green/30 hidden md:block">
+          </div>
+          <div class="space-y-16">
+            <!-- Step 1 -->
+            <div class="md:flex md:items-center" data-aos="fade-right" data-aos-delay="100">
+              <div class="md:w-1/2 md:pr-8 text-right">
+                <h3 class="font-bold text-lg mb-2">It Started at Home</h3>
+                <p class="text-gray-600 text-sm">
+                  We didn’t want to throw away leftovers from our own kitchen — that was the seed of an idea.
+                </p>
+              </div>
+              <div class="md:w-1/2 md:pl-8">
+                <div class="overflow-hidden rounded-xl shadow-lg">
+                  <img
+                    src="https://images.unsplash.com/photo-1605478371318-9a82f3a0a509?q=80&w=800&auto=format&fit=crop"
+                    alt="Home leftovers" class="w-full h-56 object-cover">
+                </div>
+              </div>
+            </div>
+            <!-- Step 2 -->
+            <div class="md:flex md:items-center" data-aos="fade-left" data-aos-delay="200">
+              <div class="md:w-1/2 md:pr-8">
+                <div class="overflow-hidden rounded-xl shadow-lg">
+                  <img
+                    src="https://images.unsplash.com/photo-1514516870926-205989f7a06e?q=80&w=800&auto=format&fit=crop"
+                    alt="Community event" class="w-full h-56 object-cover">
+                </div>
+              </div>
+              <div class="md:w-1/2 md:pl-8 text-left">
+                <h3 class="font-bold text-lg mb-2">Community Functions</h3>
+                <p class="text-gray-600 text-sm">
+                  We encouraged people at family events and gatherings not to waste food and started sharing it.
+                </p>
+              </div>
+            </div>
+            <!-- Step 3 -->
+            <div class="md:flex md:items-center" data-aos="fade-right" data-aos-delay="300">
+              <div class="md:w-1/2 md:pr-8 text-right">
+                <h3 class="font-bold text-lg mb-2">Partnering with Restaurants</h3>
+                <p class="text-gray-600 text-sm">
+                  We expanded by helping restaurants and businesses rescue surplus food instead of discarding it.
+                </p>
+              </div>
+              <div class="md:w-1/2 md:pl-8">
+                <div class="overflow-hidden rounded-xl shadow-lg">
+                  <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop"
+                    alt="Restaurant food" class="w-full h-56 object-cover">
+                </div>
+              </div>
+            </div>
+            <!-- Step 4 -->
+            <div class="md:flex md:items-center" data-aos="fade-left" data-aos-delay="400">
+              <div class="md:w-1/2 md:pr-8">
+                <div class="overflow-hidden rounded-xl shadow-lg">
+                  <img
+                    src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=800&auto=format&fit=crop"
+                    alt="Zero food waste" class="w-full h-56 object-cover">
+                </div>
+              </div>
+              <div class="md:w-1/2 md:pl-8 text-left">
+                <h3 class="font-bold text-lg mb-2">Our Goal: Zero Food Waste</h3>
+                <p class="text-gray-600 text-sm">
+                  Our journey continues with one mission — to build a world where no good food goes to waste.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section class="py-20">
+      <div class="container mx-auto px-4 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-12" data-aos="fade-up">Meet Our Team</h2>
+        <div class="grid md:grid-cols-3 gap-12">
+          <div class="bg-white rounded-xl shadow-lg p-6" data-aos="fade-up" data-aos-delay="100">
+            <img src="https://i.pravatar.cc/150?img=32" class="w-24 h-24 rounded-full mx-auto mb-4">
+            <h3 class="font-bold text-lg">Alex Johnson</h3>
+            <p class="text-gray-600 text-sm">Founder & CEO</p>
+          </div>
+          <div class="bg-white rounded-xl shadow-lg p-6" data-aos="fade-up" data-aos-delay="200">
+            <img src="https://i.pravatar.cc/150?img=47" class="w-24 h-24 rounded-full mx-auto mb-4">
+            <h3 class="font-bold text-lg">Priya Mehta</h3>
+            <p class="text-gray-600 text-sm">Operations Lead</p>
+          </div>
+          <div class="bg-white rounded-xl shadow-lg p-6" data-aos="fade-up" data-aos-delay="300">
+            <img src="https://i.pravatar.cc/150?img=12" class="w-24 h-24 rounded-full mx-auto mb-4">
+            <h3 class="font-bold text-lg">David Lee</h3>
+            <p class="text-gray-600 text-sm">Community Manager</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="bg-brand-accent-yellow py-20 text-center text-brand-dark-green" data-aos="fade-up">
+      <h2 class="text-4xl font-extrabold mb-4">Join Us in Making a Difference</h2>
+      <p class="mb-8 text-lg">Whether you’re a donor, volunteer, or partner, your role is vital in our mission.</p>
+      <a href="9fae891f-bf06-432c-8e82-84bb08324d81.html#register"
+        class="px-8 py-3 bg-brand-dark-green text-white rounded-full font-bold hover:bg-opacity-90 shadow-lg">Get
+        Involved</a>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer id="contact" class="bg-brand-dark-green text-white w-full">
+    <div class="px-4 lg:px-8 py-16 max-w-screen-2xl mx-auto">
+      <div class="grid md:grid-cols-4 gap-8 text-left">
+        <div>
+          <h3 class="font-bold text-lg mb-4">Food Rescue Network</h3>
+          <p class="text-white/70 text-sm">
+            Reducing food waste and fighting hunger by connecting communities.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg mb-4">Quick Links</h3>
+          <ul class="space-y-2 text-sm text-white/70">
+            <li><a href="about.html" class="hover:text-white">About Us</a></li>
+            <li><a href="index.html#how-it-works" class="hover:text-white">How It Works</a></li>
+            <li><a href="#" class="hover:text-white">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg mb-4">Contact</h3>
+          <ul class="space-y-2 text-sm text-white/70">
+            <li><a href="mailto:contact@foodrescue.org" class="hover:text-white">contact@foodrescue.org</a></li>
+            <li><a href="tel:123-456-7890" class="hover:text-white">123-456-7890</a></li>
+            <li>
+              <p>123 Rescue Rd, Hungerfree, USA</p>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg mb-4">Stay Updated</h3>
+          <p class="text-sm text-white/70 mb-2">Join our newsletter for the latest updates.</p>
+          <form class="flex">
+            <input type="email" placeholder="Your email"
+              class="w-full px-3 py-2 text-sm text-gray-800 rounded-l-md focus:outline-none">
+            <button
+              class="bg-brand-accent-yellow text-brand-dark-green font-bold px-4 py-2 rounded-r-md shadow-md hover:shadow-lg transition-shadow">
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div
+        class="mt-12 pt-8 border-t border-white/20 flex flex-col sm:flex-row justify-between items-start text-sm text-white/60">
+        <p>&copy; 2025 Food Rescue Network. All Rights Reserved.</p>
+        <div class="flex space-x-4 mt-4 sm:mt-0">
+          <a href="#" class="hover:text-white">Privacy Policy</a>
+          <a href="#" class="hover:text-white">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AOS Init -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true });
+  </script>
+</body>
+
+</html>

@@ -351,5 +351,102 @@
             setTimeout(() => userInfoModal.classList.add('hidden'), 300);
         }
     </script>
+    <script type="module">
+        import { db } from './FirebaseConfig.js';
+        import { collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
+        async function loadApprovedNgos() {
+            const listWrapper = document.getElementById('ngos-list');
+            if (!listWrapper) return;
+
+            // Create/locate the container for items
+            let itemsContainer = listWrapper.querySelector('.space-y-4');
+            if (!itemsContainer) {
+                itemsContainer = document.createElement('div');
+                itemsContainer.className = 'space-y-4';
+                listWrapper.innerHTML = '';
+                listWrapper.appendChild(itemsContainer);
+            } else {
+                itemsContainer.innerHTML = '';
+            }
+
+            // Show a lightweight loader
+            const loadingEl = document.createElement('p');
+            loadingEl.className = 'text-sm text-gray-500';
+            loadingEl.textContent = 'Loading NGOs...';
+            itemsContainer.appendChild(loadingEl);
+
+            try {
+                // Query by role only to avoid composite index; filter approved client-side
+                const ngosQuery = query(collection(db, 'users'), where('role', '==', 'ngo'));
+                const snapshot = await getDocs(ngosQuery);
+                const ngos = [];
+                snapshot.forEach(docSnap => {
+                    const data = docSnap.data() || {};
+                    if ((data.verification_status || '').toLowerCase() === 'approved') {
+                        ngos.push({ id: docSnap.id, ...data });
+                    }
+                });
+
+                itemsContainer.innerHTML = '';
+
+                if (ngos.length === 0) {
+                    const empty = document.createElement('p');
+                    empty.className = 'text-center text-gray-500 bg-gray-50 p-6 rounded-lg';
+                    empty.textContent = 'No approved NGOs found.';
+                    itemsContainer.appendChild(empty);
+                    return;
+                }
+
+                ngos.forEach(ngo => {
+                    const joinedDate = (() => {
+                        const ts = ngo.created_at;
+                        try {
+                            if (ts && typeof ts.toDate === 'function') {
+                                return ts.toDate().toISOString().slice(0, 10);
+                            }
+                            if (ts instanceof Date) {
+                                return ts.toISOString().slice(0, 10);
+                            }
+                        } catch (_) {}
+                        return '—';
+                    })();
+
+                    const displayName = (ngo.ngo_profile && ngo.ngo_profile.ngoName) || ngo.name || ngo.email || 'NGO';
+                    const certPreview = 'https://placehold.co/400x300/bae6fd/14281D?text=NGO+Certificate';
+
+                    const row = document.createElement('div');
+                    row.className = 'flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg';
+                    row.innerHTML = `
+                        <div>
+                            <p class="font-bold">${displayName}</p>
+                            <p class="text-sm text-gray-500">Joined: ${joinedDate}</p>
+                        </div>
+                        <button class="text-sm font-semibold text-brand-green hover:underline">View</button>
+                    `;
+                    const viewBtn = row.querySelector('button');
+                    viewBtn.addEventListener('click', () => {
+                        // Reuse existing modal
+                        window.showUserInfo(
+                            'NGO',
+                            displayName,
+                            `Email: ${ngo.email || 'N/A'}`,
+                            certPreview
+                        );
+                    });
+                    itemsContainer.appendChild(row);
+                });
+            } catch (err) {
+                itemsContainer.innerHTML = '';
+                const error = document.createElement('p');
+                error.className = 'text-sm text-red-600';
+                error.textContent = 'Failed to load NGOs. Please refresh.';
+                itemsContainer.appendChild(error);
+                console.error('Failed to load NGOs:', err);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadApprovedNgos);
+    </script>
 </body>
 </html>

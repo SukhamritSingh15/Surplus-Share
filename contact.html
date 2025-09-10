@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Food Rescue Network</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-green': '#1E392A',
+            'brand-dark-green': '#14281D',
+            'brand-light-cream': '#F8F7F4',
+            'brand-accent-red': '#C70039',
+            'brand-accent-yellow': '#FFC300',
+            'brand-text': '#333333',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #F8F7F4;
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="text-brand-text">
+
+  <!-- Navbar -->
+  <header class="bg-white/80 backdrop-blur-lg border-b border-gray-200 sticky top-0 z-50 transition-shadow duration-300" data-aos="fade-down">
+    <nav class="container mx-auto px-4 lg:px-8 flex items-center justify-between h-20 transition-all duration-300">
+        <a href="#" class="text-2xl font-bold text-brand-green flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg>
+            <span>FoodRescue</span>
+        </a>
+        <ul class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-gray-700">
+            <li><a href="about.html" class="hover:text-brand-green">About Us</a></li>
+            <li><a href="howitworks.html" class="hover:text-brand-green">How It Works</a></li>
+            <li><a href="contact.html" class="hover:text-brand-green">Contact</a></li>
+            <li><a href="Reach_NGOs.html" class="hover:text-brand-green">Reach NGOs</a></li>
+            <li><a href="dashboard.html" class="hover:text-brand-green">Dashboard</a></li>
+        </ul>
+        <div class="flex items-center space-x-2">
+            <a href="login.html" class="px-4 py-2 text-sm font-semibold text-brand-green rounded-full hover:bg-gray-100">Login</a>
+            <a href="login.html" class="px-4 py-2 bg-brand-green text-white rounded-full text-sm font-semibold hover:bg-opacity-90 shadow-md hover:shadow-lg transition-shadow">Sign Up</a>
+        </div>
+    </nav>
+</header>
+
+  <!-- Hero -->
+  <section class="bg-brand-green text-white py-32 text-center" data-aos="fade-in">
+    <h1 class="text-5xl font-extrabold mb-4">Contact Us</h1>
+    <p class="max-w-2xl mx-auto text-white/80 text-lg">We’d love to hear from you! Reach out for questions, collaborations, or support.</p>
+  </section>
+
+  <!-- Contact Form -->
+  <section class="py-20">
+    <div class="container mx-auto px-4 lg:px-8 grid md:grid-cols-2 gap-12">
+      <!-- Form -->
+      <div data-aos="fade-right">
+        <h2 class="text-3xl font-bold mb-6">Get In Touch</h2>
+        <form class="bg-white rounded-xl shadow-lg p-8 space-y-4">
+          <input type="text" placeholder="Your Name" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-green">
+          <input type="email" placeholder="Your Email" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-green">
+          <input type="text" placeholder="Subject" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-green">
+          <textarea placeholder="Your Message" rows="5" class="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-green"></textarea>
+          <button class="w-full bg-brand-green text-white font-bold py-3 rounded-md hover:bg-opacity-90 transition">Send Message</button>
+        </form>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="space-y-8" data-aos="fade-left">
+        <h2 class="text-3xl font-bold mb-6">Contact Information</h2>
+        <div>
+          <p class="text-gray-600">Email</p>
+          <a href="mailto:contact@foodrescue.org" class="font-semibold text-brand-green hover:underline">contact@foodrescue.org</a>
+        </div>
+        <div>
+          <p class="text-gray-600">Phone</p>
+          <a href="tel:123-456-7890" class="font-semibold text-brand-green hover:underline">123-456-7890</a>
+        </div>
+        <div>
+          <p class="text-gray-600">Address</p>
+          <p class="font-semibold">123 Rescue Rd, Hungerfree, USA</p>
+        </div>
+        <!-- Map -->
+        <div class="rounded-xl overflow-hidden shadow-lg">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.1941612642966!2d-122.4194154846813!3d37.7749297797591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858154c2b3e7f7%3A0xf4d70bbf0a3b2d55!2sSan%20Francisco!5e0!3m2!1sen!2sus!4v1601684033000!5m2!1sen!2sus" 
+            width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-brand-dark-green text-white">
+    <div class="container mx-auto px-4 lg:px-8 py-12 flex flex-col sm:flex-row justify-between items-center text-sm text-white/70">
+      <p>&copy; 2025 Food Rescue Network. All Rights Reserved.</p>
+      <div class="flex space-x-4 mt-4 sm:mt-0">
+        <a href="#" class="hover:text-white">Privacy Policy</a>
+        <a href="#" class="hover:text-white">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AOS Init -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true });
+  </script>
+</body>
+</html>

@@ -28,8 +28,10 @@ signupForm.addEventListener('submit', async (e) => {
         return;
     }
 
-    // Default status is 'approved' for immediate access in the hackathon.
-    let verificationStatus = "approved";
+    // Default status depends on role
+    // - donor, ngo: pending (go through verification page first)
+    // - volunteer, admin: approved (direct dashboard access)
+    let verificationStatus = (role === 'donor' || role === 'ngo') ? 'pending' : 'approved';
 
     // Special case: Create an auto-approved admin user.
     if (email.toLowerCase() === 'admin@surplus.com') {
@@ -50,13 +52,18 @@ signupForm.addEventListener('submit', async (e) => {
             created_at: new Date()
         });
 
-        // 3. Inform user and redirect to the correct dashboard
-        alert('Registration successful! Redirecting to your dashboard...');
-        
+        // 3. Inform user and redirect appropriately based on role
         if (role === 'admin') {
+            alert('Registration successful! Redirecting to admin panel...');
             window.location.href = 'admin.html';
+        } else if (role === 'donor') {
+            alert('Registration successful! Continue with donor verification.');
+            window.location.href = 'donor_verification.html';
+        } else if (role === 'ngo') {
+            alert('Registration successful! Continue with NGO verification.');
+            window.location.href = 'ngo_verification.html';
         } else {
-            // Pass role to dashboard to show correct view
+            alert('Registration successful! Redirecting to your dashboard...');
             window.location.href = `dashboard.html?role=${encodeURIComponent(role)}`;
         }
 
@@ -107,7 +114,16 @@ signinForm.addEventListener('submit', async (e) => {
                 window.location.href = `dashboard.html?role=${encodeURIComponent(userData.role)}`;
             }
         } else if (userData.verification_status === "pending") {
-            alert("Your account is pending approval from an administrator. Please check back later.");
+            // Send pending users to their verification pages to complete details
+            if (userData.role === 'donor') {
+                alert('Please complete donor verification to proceed.');
+                window.location.href = 'donor_verification.html';
+            } else if (userData.role === 'ngo') {
+                alert('Please complete NGO verification to proceed.');
+                window.location.href = 'ngo_verification.html';
+            } else {
+                alert("Your account is pending approval. Please complete any required steps.");
+            }
         } else { // Handles "rejected" or any other status
             alert("Your account has been rejected or is inactive. Please contact support.");
         }

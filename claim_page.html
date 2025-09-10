@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Details - FoodRescue Network</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library CSS CDN -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Tailwind CSS Configuration (from your index.html) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-green': '#1E392A',
+                        'brand-dark-green': '#14281D',
+                        'brand-light-cream': '#F8F7F4',
+                        'brand-accent-red': '#C70039',
+                        'brand-accent-yellow': '#FFC300',
+                        'brand-text': '#333333',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8F7F4; /* brand-light-cream */
+            scroll-behavior: smooth;
+        }
+        .thumbnail.active {
+            border-color: #1E392A; /* brand-green */
+        }
+        /* Styles for the confirmation modal */
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal .modal-content {
+            transition: transform 0.3s ease-in-out;
+        }
+        #truck {
+            transform: scaleX(-1); /* Flips the truck emoji */
+        }
+    </style>
+</head>
+<body class="text-brand-text">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white/80 backdrop-blur-lg border-b border-gray-200 sticky top-0 z-50 transition-shadow duration-300" data-aos="fade-down">
+        <nav class="container mx-auto px-4 lg:px-8 flex items-center justify-between h-20 transition-all duration-300">
+            <a href="#" class="text-2xl font-bold text-brand-green flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg>
+                <span>FoodRescue</span>
+            </a>
+            <ul class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-gray-700">
+                <li><a href="about.html" class="hover:text-brand-green">About Us</a></li>
+                <li><a href="howitworks.html" class="hover:text-brand-green">How It Works</a></li>
+                <li><a href="contact.html" class="hover:text-brand-green">Contact</a></li>
+                <li><a href="Reach_NGOs.html" class="hover:text-brand-green">Reach NGOs</a></li>
+                <li><a href="dashboard.html" class="hover:text-brand-green">Dashboard</a></li>
+            </ul>
+            <div class="flex items-center space-x-2">
+                <a href="login.html" class="px-4 py-2 text-sm font-semibold text-brand-green rounded-full hover:bg-gray-100">Login</a>
+                <a href="login.html" class="px-4 py-2 bg-brand-green text-white rounded-full text-sm font-semibold hover:bg-opacity-90 shadow-md hover:shadow-lg transition-shadow">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 lg:px-8 py-16">
+        <div id="main-content" class="max-w-6xl mx-auto relative">
+            <!-- Rejection Overlay -->
+            <div id="cross-overlay" class="absolute inset-0 bg-black/20 rounded-xl z-20 flex items-center justify-center opacity-0 pointer-events-none">
+                <span class="text-9xl text-red-500" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">❌</span>
+            </div>
+            
+             <div data-aos="fade-up">
+                <a href="dashboard.html" class="text-sm font-semibold text-brand-green hover:underline mb-4 inline-block"><i class="fa-solid fa-arrow-left mr-2"></i>Back to Dashboard</a>
+                <h1 class="text-4xl font-extrabold text-brand-green mb-2">Mixed Fresh Vegetables</h1>
+                <p class="text-gray-600">Review the details below and claim this food donation for your organization.</p>
+            </div>
+
+            <div class="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                
+                <!-- Left Column -->
+                <div class="space-y-8">
+                    <!-- Image Gallery -->
+                    <div data-aos="fade-right">
+                        <img id="mainImage" src="https://placehold.co/600x400/d1fae5/333333?text=Veggies" alt="Mixed Vegetables" class="w-full h-auto object-cover rounded-xl shadow-lg border-4 border-white mb-4">
+                        <div class="grid grid-cols-4 gap-2">
+                            <img src="https://placehold.co/200x200/d1fae5/333333?text=Veggies" alt="Thumbnail 1" class="thumbnail active w-full h-auto object-cover rounded-md cursor-pointer border-2 hover:border-brand-green transition" onclick="changeImage(this.src)">
+                            <img src="https://placehold.co/200x200/d1fae5/333333?text=Carrots" alt="Thumbnail 2" class="thumbnail w-full h-auto object-cover rounded-md cursor-pointer border-2 border-transparent hover:border-brand-green transition" onclick="changeImage(this.src)">
+                            <img src="https://placehold.co/200x200/d1fae5/333333?text=Tomatoes" alt="Thumbnail 3" class="thumbnail w-full h-auto object-cover rounded-md cursor-pointer border-2 border-transparent hover:border-brand-green transition" onclick="changeImage(this.src)">
+                            <img src="https://placehold.co/200x200/d1fae5/333333?text=Box" alt="Thumbnail 4" class="thumbnail w-full h-auto object-cover rounded-md cursor-pointer border-2 border-transparent hover:border-brand-green transition" onclick="changeImage(this.src)">
+                        </div>
+                    </div>
+
+                    <!-- Donor Information -->
+                    <div class="bg-white p-6 rounded-xl shadow-md" data-aos="fade-up">
+                        <h3 class="font-bold text-xl mb-4 border-b pb-3 flex items-center gap-3"><i class="fa-solid fa-store text-brand-green"></i>Donor Information</h3>
+                        <div class="space-y-3 text-gray-700">
+                           <div class="flex justify-between items-center">
+                                <span>The Corner Market</span>
+                                <span class="text-xs font-semibold bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Grocery Store</span>
+                           </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-phone w-4 text-center text-gray-500"></i>
+                                <a href="tel:123-456-7890" class="hover:text-brand-green">123-456-7890</a>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-location-dot w-4 text-center text-gray-500"></i>
+                                <span>123 Market St, Chandigarh, India</span>
+                            </div>
+                            <a href="#" class="text-sm font-semibold text-brand-green hover:underline">View donor profile &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="space-y-6 flex flex-col" data-aos="fade-left" data-aos-delay="100">
+                    
+                    <!-- Item Information -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="font-bold text-xl mb-4 border-b pb-3 flex items-center gap-3"><i class="fa-solid fa-box-open text-brand-green"></i>Item Information</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
+                            <div><strong class="block text-gray-500">Category:</strong> Produce</div>
+                            <div><strong class="block text-gray-500">Quantity:</strong> Approx. 5 kg</div>
+                            <div><strong class="block text-gray-500">Condition:</strong> Fresh, uncooked</div>
+                            <div><strong class="block text-gray-500">Packaging:</strong> Mixed boxes</div>
+                            <div class="sm:col-span-2"><strong class="block text-gray-500">Allergens:</strong> None reported</div>
+                            <div class="sm:col-span-2"><strong class="block text-gray-500">Best Before:</strong> Best used within 2-3 days</div>
+                             <div class="sm:col-span-2"><strong class="block text-gray-500">Notes from Donor:</strong> "A mix of carrots, tomatoes, cucumbers, and bell peppers from today's delivery that we couldn't stock."</div>
+                        </div>
+                    </div>
+
+                    <!-- Pickup Instructions -->
+                    <div class="bg-yellow-50 border-l-4 border-brand-accent-yellow p-6 rounded-r-xl shadow-md">
+                        <h3 class="font-bold text-xl mb-4 border-b pb-3 flex items-center gap-3"><i class="fa-solid fa-truck-fast text-brand-accent-yellow"></i>Pickup Instructions</h3>
+                        <div class="space-y-3 text-gray-800">
+                            <div class="flex justify-between items-center bg-brand-green text-white p-3 rounded-lg">
+                                <span class="font-semibold">Pickup Deadline:</span>
+                                <span class="font-bold text-lg">Today, until 8:00 PM</span>
+                            </div>
+                            <div><strong class="block text-gray-600">Contact Person:</strong> Ask for Raj at the front desk.</div>
+                            <div><strong class="block text-gray-600">Instructions:</strong> Please go to the main entrance, not the loading dock. Bring your own boxes or bags if possible.</div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="mt-auto pt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <button id="reject-btn" class="w-full px-8 py-3 bg-gray-200 text-gray-800 rounded-full font-bold text-center hover:bg-gray-300 transition-colors shadow-lg flex items-center justify-center gap-2">
+                           <i class="fa-solid fa-times-circle"></i>
+                            Reject
+                        </button>
+                        <button id="claim-btn" class="w-full px-8 py-3 bg-brand-accent-yellow text-brand-dark-green rounded-full font-bold text-center hover:bg-opacity-90 transition-transform hover:scale-105 shadow-lg flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-check-circle"></i>
+                            Accept & Claim
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Section -->
+            <div class="mt-16" data-aos="fade-up">
+                 <h3 class="text-2xl font-bold text-brand-text mb-4 text-center">Donor Location</h3>
+                 <div class="rounded-xl overflow-hidden shadow-lg border-4 border-white">
+                     <iframe 
+                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54865.04018845244!2d76.73344605151528!3d30.75330991054192!2m3!1f0!2f0!3f0!3m2!1i1024!i768!4f13.1!3m3!1m2!1s0x390fed0be66ec96b%3A0x52ce58f1a2371610!2sChandigarh!5e0!3m2!1sen!2sin!4v1721736183577!5m2!1sen!2sin" 
+                         width="100%" 
+                         height="400" 
+                         style="border:0;" 
+                         allowfullscreen="" 
+                         loading="lazy" 
+                         referrerpolicy="no-referrer-when-downgrade">
+                     </iframe>
+                 </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Truck Animation Element -->
+    <div id="truck" class="fixed top-0 -left-32 text-7xl z-[100] opacity-0 pointer-events-none">🚚</div>
+    
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal hidden fixed inset-0 bg-black/50 z-[99] flex items-center justify-center p-4 opacity-0">
+        <div class="modal-content bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full text-center scale-95">
+            <div class="w-20 h-20 bg-green-100 rounded-full mx-auto flex items-center justify-center mb-4">
+                <i class="fa-solid fa-check text-4xl text-green-600"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-brand-green mb-2">Claimed Successfully!</h2>
+            <p class="text-gray-600 mb-6">The donor has been notified. Please arrange for pickup as per the instructions.</p>
+            <a href="dashboard.html" class="w-full block px-6 py-3 bg-brand-green text-white rounded-full font-bold text-center hover:bg-brand-dark-green transition-transform hover:scale-105 shadow-lg">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <!-- Rejection Modal -->
+    <div id="rejection-modal" class="modal hidden fixed inset-0 bg-black/50 z-[99] flex items-center justify-center p-4 opacity-0">
+        <div class="modal-content bg-white p-8 rounded-2xl shadow-2xl max-w-sm w-full text-center scale-95">
+            <div class="w-20 h-20 bg-red-100 rounded-full mx-auto flex items-center justify-center mb-4">
+                <i class="fa-solid fa-times text-4xl text-red-600"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-brand-accent-red mb-2">Donation Rejected</h2>
+            <p class="text-gray-600 mb-6">This donation has been removed from your view. Thank you for considering it.</p>
+            <a href="dashboard.html" class="w-full block px-6 py-3 bg-brand-green text-white rounded-full font-bold text-center hover:bg-brand-dark-green transition-transform hover:scale-105 shadow-lg">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+        });
+
+        // --- NAVBAR SCROLL ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('header');
+            const nav = header.querySelector('nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('shadow-md');
+                    nav.classList.remove('h-20');
+                    nav.classList.add('h-16', 'max-w-6xl');
+                } else {
+                    header.classList.remove('shadow-md');
+                    nav.classList.remove('h-16', 'max-w-6xl');
+                    nav.classList.add('h-20');
+                }
+            });
+
+            // --- TRUCK ANIMATION & MODAL LOGIC ---
+            const claimBtn = document.getElementById('claim-btn');
+            const rejectBtn = document.getElementById('reject-btn');
+            const truck = document.getElementById('truck');
+            const crossOverlay = document.getElementById('cross-overlay');
+            const mainContent = document.getElementById('main-content');
+
+            const confirmationModal = document.getElementById('confirmation-modal');
+            const confirmationModalContent = confirmationModal.querySelector('.modal-content');
+            
+            const rejectionModal = document.getElementById('rejection-modal');
+            const rejectionModalContent = rejectionModal.querySelector('.modal-content');
+
+            claimBtn.addEventListener('click', () => {
+                const btnRect = claimBtn.getBoundingClientRect();
+                const topPosition = btnRect.top + (btnRect.height / 2);
+
+                gsap.fromTo(truck, 
+                    { 
+                        x: -200,
+                        y: topPosition, 
+                        yPercent: -50,
+                        autoAlpha: 1
+                    },
+                    {
+                        x: window.innerWidth + 200,
+                        duration: 2.5,
+                        ease: "power1.in",
+                        onComplete: () => {
+                            gsap.set(truck, { autoAlpha: 0 }); 
+                            confirmationModal.classList.remove('hidden');
+                            setTimeout(() => {
+                               confirmationModal.classList.remove('opacity-0');
+                               confirmationModalContent.classList.remove('scale-95');
+                            }, 10);
+                        }
+                    }
+                );
+            });
+
+            rejectBtn.addEventListener('click', () => {
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        rejectionModal.classList.remove('hidden');
+                        setTimeout(() => {
+                           rejectionModal.classList.remove('opacity-0');
+                           rejectionModalContent.classList.remove('scale-95');
+                        }, 10);
+                    }
+                });
+
+                // 1. Fade in the cross overlay
+                tl.to(crossOverlay, { duration: 0.25, autoAlpha: 1, scale: 1.1 })
+                  // 2. Fade it out while scaling it down
+                  .to(crossOverlay, { duration: 0.25, autoAlpha: 0, scale: 1, delay: 0.25 });
+                
+                // 3. Fade out the main content card, starting slightly after the cross appears
+                tl.to(mainContent, { duration: 0.5, autoAlpha: 0, y: -20 }, "-=0.4");
+            });
+        });
+
+        // --- IMAGE GALLERY ---
+        function changeImage(src) {
+            document.getElementById('mainImage').src = src;
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach(thumb => {
+                thumb.classList.remove('active');
+                if (thumb.src === src) {
+                    thumb.classList.add('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+

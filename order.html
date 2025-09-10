@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Tracking - FoodRescue</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind CSS Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-green': '#1E392A',
+                        'brand-dark-green': '#14281D',
+                        'brand-light-cream': '#F8F7F4',
+                        'brand-accent-red': '#C70039',
+                        'brand-accent-yellow': '#FFC300',
+                        'brand-text': '#333333',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8F7F4; /* brand-light-cream */
+        }
+        /* Styles for the tracking timeline */
+        .timeline-item .icon {
+            background-color: #e5e7eb; /* gray-200 */
+            color: #6b7280; /* gray-500 */
+            transition: all 0.3s ease;
+        }
+        .timeline-item .line {
+            background-color: #e5e7eb; /* gray-200 */
+            transition: all 0.3s ease;
+            height: calc(100% - 2.5rem); /* Adjust based on icon size */
+        }
+        .timeline-item.completed .icon, .timeline-item.active .icon {
+            background-color: #1E392A; /* brand-green */
+            color: white;
+        }
+        .timeline-item.completed .line {
+            background-color: #1E392A; /* brand-green */
+        }
+        .timeline-item .details {
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+         .timeline-item.completed .details, .timeline-item.active .details {
+            opacity: 1;
+        }
+        .modal {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="text-brand-text">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white/80 backdrop-blur-lg border-b border-gray-200 sticky top-0 z-50">
+        <nav class="container mx-auto px-4 lg:px-8 flex items-center justify-between h-20">
+            <a href="index.html" class="text-2xl font-bold text-brand-green flex items-center gap-2">
+                <i class="fa-solid fa-seedling"></i>
+                <span>FoodRescue</span>
+            </a>
+            <div class="flex items-center space-x-4">
+                <span class="hidden sm:block text-gray-700">Welcome, Volunteer!</span>
+                <a href="index.html" class="px-4 py-2 bg-brand-accent-red text-white rounded-full text-sm font-semibold hover:bg-opacity-90 shadow-sm">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Tracking Content -->
+    <main class="container mx-auto px-4 lg:px-8 py-10">
+        <div class="flex items-center gap-4 mb-6">
+            <a href="index.html" class="p-2 bg-gray-200 rounded-full hover:bg-gray-300 transition-colors">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div>
+                <h1 class="text-3xl font-bold text-brand-green">Bakery Pickup & Delivery</h1>
+                <p class="text-gray-600">Status: <span id="main-status" class="font-semibold text-blue-600">On the way to pickup</span></p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Column: Details & Map -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Pickup Card -->
+                <div id="pickup-card" class="bg-white p-6 rounded-xl shadow-lg border-2 border-brand-accent-yellow">
+                    <h2 class="text-xl font-bold text-brand-green mb-4">Step 1: Pickup from Donor</h2>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="flex-grow">
+                            <p class="font-semibold text-lg">The Daily Grind Cafe</p>
+                            <p class="text-gray-600">123 Main St, Chandigarh, PB, 160017</p>
+                            <div class="mt-4 space-y-2 text-sm border-t pt-4">
+                                <p><strong class="w-24 inline-block">Item:</strong> Surplus Bakery Bread & Pastries</p>
+                                <p><strong class="w-24 inline-block">Contact:</strong> Sarah L. (Manager)</p>
+                                <p><strong class="w-24 inline-block">Instructions:</strong> "Please use the side entrance. The boxes are ready on the counter."</p>
+                                <p><strong class="w-24 inline-block">Pickup by:</strong> <span class="font-bold text-brand-accent-red">4:30 PM Today</span></p>
+                            </div>
+                            <button id="pickup-btn" onclick="markAsPickedUp()" class="mt-6 w-full md:w-auto px-6 py-2 bg-brand-green text-white font-bold rounded-full hover:bg-brand-dark-green transition-colors flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-box-check"></i> Mark as Picked Up
+                            </button>
+                        </div>
+                        <img src="https://placehold.co/400x250/e2e8f0/333333?text=Pickup+Location+Map" alt="Map to pickup location" class="rounded-lg w-full md:w-1/2 object-cover self-center">
+                    </div>
+                </div>
+
+                <!-- Delivery Card -->
+                <div id="delivery-card" class="bg-white p-6 rounded-xl shadow-lg opacity-50 transition-opacity duration-500">
+                    <h2 class="text-xl font-bold text-brand-green mb-4">Step 2: Deliver to NGO</h2>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="flex-grow">
+                             <p class="font-semibold text-lg">Hope Community Shelter</p>
+                            <p class="text-gray-600">456 Park Ave, Chandigarh, PB, 160022</p>
+                             <div class="mt-4 space-y-2 text-sm border-t pt-4">
+                                <p><strong class="w-24 inline-block">Contact:</strong> David M. (Director)</p>
+                                <p><strong class="w-24 inline-block">Instructions:</strong> "Ring the bell at the main entrance. We will help you unload."</p>
+                                <p><strong class="w-24 inline-block">Deliver by:</strong> <span class="font-bold">5:15 PM Today</span></p>
+                            </div>
+                            <button id="delivery-btn" onclick="showConfirmationModal()" class="mt-6 w-full md:w-auto px-6 py-2 bg-gray-300 text-gray-500 font-bold rounded-full cursor-not-allowed transition-colors flex items-center justify-center gap-2" disabled>
+                                <i class="fa-solid fa-house-user"></i> Mark as Delivered
+                            </button>
+                        </div>
+                        <img src="https://placehold.co/400x250/e2e8f0/333333?text=Delivery+Location+Map" alt="Map to delivery location" class="rounded-lg w-full md:w-1/2 object-cover self-center">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Timeline & Help -->
+            <div class="space-y-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h2 class="text-xl font-bold text-brand-green mb-6">Delivery Timeline</h2>
+                    <div class="space-y-2">
+                        <!-- Item 1: Accepted -->
+                        <div id="status-accepted" class="timeline-item flex gap-4 completed">
+                            <div class="relative"><div class="icon w-10 h-10 rounded-full flex items-center justify-center z-10 relative"><i class="fa-solid fa-check"></i></div><div class="line absolute top-10 left-1/2 -translate-x-1/2 w-0.5"></div></div>
+                            <div class="details pt-2"><p class="font-semibold">Job Accepted</p><p class="text-sm text-gray-500">3:35 PM</p></div>
+                        </div>
+                        <!-- Item 2: On way to pickup -->
+                        <div id="status-enroute-pickup" class="timeline-item flex gap-4 active">
+                            <div class="relative"><div class="icon w-10 h-10 rounded-full flex items-center justify-center z-10 relative"><i class="fa-solid fa-truck-fast"></i></div><div class="line absolute top-10 left-1/2 -translate-x-1/2 w-0.5"></div></div>
+                            <div class="details pt-2"><p class="font-semibold">On the way to pickup</p><p class="text-sm text-gray-500">Est. arrival: 4:10 PM</p></div>
+                        </div>
+                        <!-- Item 3: Picked Up -->
+                        <div id="status-picked-up" class="timeline-item flex gap-4">
+                            <div class="relative"><div class="icon w-10 h-10 rounded-full flex items-center justify-center z-10 relative"><i class="fa-solid fa-box"></i></div><div class="line absolute top-10 left-1/2 -translate-x-1/2 w-0.5"></div></div>
+                            <div class="details pt-2"><p class="font-semibold">Food collected</p><p id="pickup-time" class="text-sm text-gray-500"></p></div>
+                        </div>
+                        <!-- Item 4: En route to delivery -->
+                        <div id="status-enroute-delivery" class="timeline-item flex gap-4">
+                            <div class="relative"><div class="icon w-10 h-10 rounded-full flex items-center justify-center z-10 relative"><i class="fa-solid fa-route"></i></div><div class="line absolute top-10 left-1/2 -translate-x-1/2 w-0.5"></div></div>
+                            <div class="details pt-2"><p class="font-semibold">On the way to deliver</p><p class="text-sm text-gray-500">Est. delivery: 4:55 PM</p></div>
+                        </div>
+                        <!-- Item 5: Delivered -->
+                        <div id="status-delivered" class="timeline-item flex gap-4">
+                            <div class="relative"><div class="icon w-10 h-10 rounded-full flex items-center justify-center"><i class="fa-solid fa-house-flag"></i></div></div>
+                            <div class="details pt-2"><p class="font-semibold">Delivered</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                     <h2 class="text-xl font-bold text-brand-green mb-4">Need Help?</h2>
+                     <div class="space-y-3">
+                         <a href="tel:1234567890" class="w-full block text-center px-4 py-2 border-2 border-brand-green text-brand-green rounded-full font-bold hover:bg-brand-green hover:text-white transition-colors">Call Donor</a>
+                         <a href="tel:0987654321" class="w-full block text-center px-4 py-2 border-2 border-brand-green text-brand-green rounded-full font-bold hover:bg-brand-green hover:text-white transition-colors">Call Recipient</a>
+                         <a href="#" class="w-full block text-center px-4 py-2 bg-gray-200 text-gray-700 rounded-full font-bold hover:bg-gray-300 transition-colors">Contact Support</a>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="hidden fixed inset-0 z-[998] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 modal">
+        <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full text-center">
+            <i class="fa-solid fa-truck-loading text-5xl text-brand-green mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">Confirm Delivery</h3>
+            <p class="text-gray-600 mb-6">Please confirm that you have successfully delivered the items to Hope Community Shelter.</p>
+            <div class="flex justify-center gap-4">
+                <button onclick="hideConfirmationModal()" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-bold hover:bg-gray-300">Cancel</button>
+                <button onclick="markAsDelivered()" class="px-6 py-2 bg-brand-green text-white rounded-full font-bold hover:bg-brand-dark-green">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thank You Modal -->
+    <div id="thankyou-modal" class="hidden fixed inset-0 z-[999] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 modal">
+        <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full text-center">
+            <i class="fa-solid fa-handshake-angle text-5xl text-brand-green mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">Delivery Complete!</h3>
+            <p class="text-gray-600 mb-6">Thank you for completing the delivery! You've made a difference.</p>
+            <button onclick="redirectToDashboard()" class="px-6 py-2 bg-brand-green text-white rounded-full font-bold hover:bg-brand-dark-green">Back to Dashboard</button>
+        </div>
+    </div>
+    
+    <script>
+        const mainStatus = document.getElementById('main-status');
+        const pickupCard = document.getElementById('pickup-card');
+        const deliveryCard = document.getElementById('delivery-card');
+        const pickupBtn = document.getElementById('pickup-btn');
+        const deliveryBtn = document.getElementById('delivery-btn');
+        const confirmationModal = document.getElementById('confirmation-modal');
+        const thankyouModal = document.getElementById('thankyou-modal');
+
+        const statusNodes = {
+            accepted: document.getElementById('status-accepted'),
+            enroutePickup: document.getElementById('status-enroute-pickup'),
+            pickedUp: document.getElementById('status-picked-up'),
+            enrouteDelivery: document.getElementById('status-enroute-delivery'),
+            delivered: document.getElementById('status-delivered')
+        };
+
+        function getCurrentTime() {
+            return new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+        }
+
+        function markAsPickedUp() {
+            // Update UI for pickup
+            pickupCard.classList.remove('border-brand-accent-yellow');
+            pickupCard.classList.add('opacity-50');
+            pickupBtn.innerHTML = '<i class="fa-solid fa-check"></i> Pickup Complete';
+            pickupBtn.disabled = true;
+
+            // Update Timeline
+            statusNodes.enroutePickup.classList.remove('active');
+            statusNodes.enroutePickup.classList.add('completed');
+            statusNodes.pickedUp.classList.add('completed');
+            document.getElementById('pickup-time').textContent = getCurrentTime();
+            statusNodes.enrouteDelivery.classList.add('active');
+
+            // Update main status
+            mainStatus.textContent = 'On the way to delivery';
+            mainStatus.className = 'font-semibold text-purple-600';
+            
+            // Enable Delivery section
+            deliveryCard.classList.remove('opacity-50');
+            deliveryCard.classList.add('border-2', 'border-brand-accent-yellow');
+            deliveryBtn.disabled = false;
+            deliveryBtn.classList.remove('bg-gray-300', 'text-gray-500', 'cursor-not-allowed');
+            deliveryBtn.classList.add('bg-brand-green', 'text-white', 'hover:bg-brand-dark-green');
+        }
+
+        function showConfirmationModal() {
+            confirmationModal.classList.remove('hidden');
+        }
+
+        function hideConfirmationModal() {
+            confirmationModal.classList.add('hidden');
+        }
+
+        function showThankYouModal() {
+            thankyouModal.classList.remove('hidden');
+        }
+
+        function redirectToDashboard() {
+            window.location.href = 'index.html'; // Redirect back to dashboard
+        }
+
+        function markAsDelivered() {
+            hideConfirmationModal();
+            // Update UI for delivery
+            deliveryCard.classList.remove('border-brand-accent-yellow');
+            deliveryBtn.innerHTML = '<i class="fa-solid fa-check-double"></i> Delivery Complete!';
+            deliveryBtn.disabled = true;
+
+            // Update Timeline
+            statusNodes.enrouteDelivery.classList.remove('active');
+            statusNodes.enrouteDelivery.classList.add('completed');
+            statusNodes.delivered.classList.add('completed');
+            
+            // Update main status
+            mainStatus.textContent = 'Delivery Complete!';
+            mainStatus.className = 'font-semibold text-brand-green';
+
+            // Show thank you modal
+            showThankYouModal();
+        }
+    </script>
+</body>
+</html>
+
+

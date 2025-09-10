@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works - Food Rescue Network</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-green': '#1E392A',
+                        'brand-dark-green': '#14281D',
+                        'brand-light-cream': '#F8F7F4',
+                        'brand-accent-red': '#C70039',
+                        'brand-accent-yellow': '#FFC300',
+                        'brand-text': '#333333',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8F7F4;
+            scroll-behavior: smooth;
+        }
+
+        /* New Hero Section Style - A different visual from the index page */
+        .hero-bg-how {
+            background-image: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+
+       
+        .hero-bg-how::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,%3Csvg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%239C92AC" fill-opacity="0.12" fill-rule="evenodd"%3E%3Cpath d="M0 0h3v3H0V0zm3 3h3v3H3V3z"/%3E%3C/g%3E%3C/svg%3E'); /* Subtle pattern */
+            opacity: 0.1;
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Dynamic Timeline Styles - Kept from previous version, still distinct */
+        .timeline-item {
+            position: relative;
+            padding-bottom: 4rem;
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: #d1d5db;
+        }
+        .timeline-item:nth-child(even) .timeline-content {
+            flex-direction: row-reverse;
+            text-align: right;
+        }
+        .timeline-item-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: #1E392A;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        .timeline-item:nth-child(even) .timeline-item-icon {
+            right: 0;
+            left: auto;
+            transform: translateX(50%);
+        }
+        .timeline-connector {
+            position: absolute;
+            top: 22px;
+            width: 100%;
+            height: 3px;
+            background-color: #d1d5db;
+        }
+        .timeline-item:nth-child(odd) .timeline-connector {
+            left: 22px;
+        }
+        .timeline-item:nth-child(even) .timeline-connector {
+            right: 22px;
+        }
+    </style>
+</head>
+<body class="text-brand-text">
+
+    <header class="bg-white/80 backdrop-blur-lg border-b border-gray-200 sticky top-0 z-50 transition-shadow duration-300">
+        <nav class="container mx-auto px-4 lg:px-8 flex items-center justify-between h-20 transition-all duration-300">
+            <a href="index.html" class="text-2xl font-bold text-brand-green flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg>
+                <span>FoodRescue</span>
+            </a>
+            <ul class="hidden lg:flex items-center space-x-8 text-sm font-semibold text-gray-700">
+                <li><a href="index.html#about" class="hover:text-brand-green">About Us</a></li>
+                <li><a href="index.html#how-it-works" class="hover:text-brand-green">How It Works</a></li>
+                <li><a href="index.html#volunteer" class="hover:text-brand-green">Volunteer</a></li>
+                <li><a href="index.html#contact" class="hover:text-brand-green">Contact</a></li>
+            </ul>
+            <div class="flex items-center space-x-2">
+                <a href="login.html" class="px-4 py-2 text-sm font-semibold text-brand-green rounded-full hover:bg-gray-100">Login</a>
+                <a href="login.html" class="px-4 py-2 bg-brand-green text-white rounded-full text-sm font-semibold hover:bg-opacity-90 shadow-md hover:shadow-lg transition-shadow">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero-bg-how text-white py-24 md:py-32 flex items-center justify-center">
+        <div class="hero-content container mx-auto px-4 lg:px-8 text-center" data-aos="fade-up">
+            <h1 class="text-4xl md:text-6xl font-extrabold !leading-tight tracking-tight drop-shadow-lg">
+                Your Impact, Simplified.
+            </h1>
+            <p class="mt-6 text-xl md:text-2xl text-white/90 max-w-3xl mx-auto drop-shadow-md">
+                Discover the seamless journey of how your surplus food transforms into hope and nourishment for communities in need.
+            </p>
+            <div class="mt-10">
+                <a href="login.html" class="inline-block px-10 py-4 bg-brand-accent-yellow text-brand-dark-green rounded-full font-bold text-lg hover:bg-opacity-90 transition-all duration-300 hover:scale-105 shadow-xl">
+                    Join the Movement
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-brand-light-cream">
+        <div class="container mx-auto px-4 lg:px-8">
+            <h2 class="text-3xl lg:text-4xl font-extrabold text-center text-brand-dark-green mb-16" data-aos="fade-up">
+                Our Simple Journey: Connecting Food, People, and Purpose
+            </h2>
+            <div class="relative max-w-4xl mx-auto md:px-12">
+                <div class="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-1 bg-gray-300 rounded-full"></div>
+                
+                <div class="timeline-item flex items-center justify-start mb-12" data-aos="fade-up">
+                    <div class="relative z-10 w-full flex flex-col md:flex-row items-center md:gap-12">
+                        <div class="flex-shrink-0 w-16 h-16 rounded-full bg-brand-green flex items-center justify-center text-white text-3xl font-bold border-4 border-brand-light-cream shadow-md transition-all duration-300 hover:scale-110">1</div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg flex-grow mt-4 md:mt-0 text-center md:text-left border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-brand-green">
+                            <h3 class="font-bold text-2xl text-brand-green mb-2">Donors List Surplus Food</h3>
+                            <p class="text-gray-700 leading-relaxed">Businesses and individuals with surplus food can quickly create a listing on our platform, providing details on the type, quantity, and pickup window for the donation. It's fast, easy, and impactful.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item flex items-center justify-end mb-12" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative z-10 w-full flex flex-col md:flex-row-reverse items-center md:gap-12">
+                        <div class="flex-shrink-0 w-16 h-16 rounded-full bg-brand-accent-red flex items-center justify-center text-white text-3xl font-bold border-4 border-brand-light-cream shadow-md transition-all duration-300 hover:scale-110">2</div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg flex-grow mt-4 md:mt-0 text-center md:text-right border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-brand-accent-red">
+                            <h3 class="font-bold text-2xl text-brand-accent-red mb-2">Charities & Volunteers Claim</h3>
+                            <p class="text-gray-700 leading-relaxed">Our network of registered charities and passionate volunteer drivers receive real-time notifications about new listings in their area, allowing them to quickly claim the donation that fits their needs.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item flex items-center justify-start mb-12" data-aos="fade-up" data-aos-delay="400">
+                    <div class="relative z-10 w-full flex flex-col md:flex-row items-center md:gap-12">
+                        <div class="flex-shrink-0 w-16 h-16 rounded-full bg-brand-green flex items-center justify-center text-white text-3xl font-bold border-4 border-brand-light-cream shadow-md transition-all duration-300 hover:scale-110">3</div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg flex-grow mt-4 md:mt-0 text-center md:text-left border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-brand-green">
+                            <h3 class="font-bold text-2xl text-brand-green mb-2">Food is Collected & Delivered</h3>
+                            <p class="text-gray-700 leading-relaxed">A dedicated volunteer or charity representative coordinates with the donor to pick up the food, following specific instructions and safety guidelines to ensure its safe journey to those who need it.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item flex items-center justify-end" data-aos="fade-up" data-aos-delay="600">
+                    <div class="relative z-10 w-full flex flex-col md:flex-row-reverse items-center md:gap-12">
+                        <div class="flex-shrink-0 w-16 h-16 rounded-full bg-brand-accent-red flex items-center justify-center text-white text-3xl font-bold border-4 border-brand-light-cream shadow-md transition-all duration-300 hover:scale-110">4</div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg flex-grow mt-4 md:mt-0 text-center md:text-right border border-gray-100 transition-all duration-300 hover:shadow-xl hover:border-brand-accent-red">
+                            <h3 class="font-bold text-2xl text-brand-accent-red mb-2">People Are Fed, Waste is Reduced</h3>
+                            <p class="text-gray-700 leading-relaxed">The rescued food is then distributed to families, community kitchens, and shelters, ensuring it reaches those who need it most, providing nourishment and combating food waste one meal at a time.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-20 bg-brand-dark-green text-white text-center">
+        <div class="container mx-auto px-4 lg:px-8">
+            <h2 class="text-4xl font-extrabold mb-4" data-aos="zoom-in">Ready to make a difference?</h2>
+            <p class="max-w-2xl mx-auto text-white/80 mb-8" data-aos="zoom-in" data-aos-delay="100">Whether you're a business with surplus food or an individual passionate about fighting hunger, there's a place for you in our network.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4" data-aos="zoom-in" data-aos-delay="200">
+                <a href="login.html" class="px-8 py-3 bg-brand-accent-yellow text-brand-dark-green rounded-full font-bold hover:bg-opacity-90 transition-transform hover:scale-105 shadow-lg">Become a Donor</a>
+                <a href="login.html" class="px-8 py-3 bg-white/20 backdrop-blur-sm border border-white/50 text-white rounded-full font-bold hover:bg-white/30 transition-transform hover:scale-105 shadow-lg">Become a Volunteer</a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-brand-dark-green text-white">
+        <div class="container mx-auto px-4 lg:px-8 py-16">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Food Rescue Network</h3>
+                    <p class="text-white/70 text-sm">Reducing food waste and fighting hunger by connecting communities.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm text-white/70">
+                        <li><a href="index.html#about" class="hover:text-white">About Us</a></li>
+                        <li><a href="#" class="hover:text-white">How It Works</a></li>
+                        <li><a href="index.html#volunteer" class="hover:text-white">Volunteer</a></li>
+                        <li><a href="#" class="hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Contact</h3>
+                     <ul class="space-y-2 text-sm text-white/70">
+                        <li><a href="mailto:contact@foodrescue.org" class="hover:text-white">contact@foodrescue.org</a></li>
+                        <li><a href="tel:123-456-7890" class="hover:text-white">123-456-7890</a></li>
+                        <li><p>123 Rescue Rd, Hungerfree, USA</p></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4">Stay Updated</h3>
+                    <p class="text-sm text-white/70 mb-2">Join our newsletter for the latest updates.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="w-full px-3 py-2 text-sm text-gray-800 rounded-l-md focus:outline-none">
+                        <button class="bg-brand-accent-yellow text-brand-dark-green font-bold px-4 py-2 rounded-r-md shadow-md hover:shadow-lg transition-shadow">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-white/20 flex flex-col sm:flex-row justify-between items-center text-sm text-white/60">
+                <p>&copy; 2025 Food Rescue Network. All Rights Reserved.</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+        });
+        
+        // --- NAVBAR SCROLL ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('header');
+            const nav = header.querySelector('nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('shadow-md');
+                    nav.classList.remove('h-20');
+                    nav.classList.add('h-16', 'max-w-6xl');
+                } else {
+                    header.classList.remove('shadow-md');
+                    nav.classList.remove('h-16', 'max-w-6xl');
+                    nav.classList.add('h-20');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
